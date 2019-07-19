@@ -30,8 +30,8 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Listing` (
   CONSTRAINT `fk_Listing_HomeType1`
     FOREIGN KEY (`HomeType_idHomeType`)
     REFERENCES `airbnb`.`HomeType` (`idHomeType`)
-    ON DELETE NO SET NULL
-    ON UPDATE NO CASCADE)
+    ON DELETE NO ACTION
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
@@ -41,13 +41,13 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Calendar` (
   `BeginDate` DATE NOT NULL,
   `RentalPrice` DOUBLE NOT NULL,
   `EndDate` DATE NOT NULL,
-  `ListingID` VARCHAR(45) NOT NULL,
+  `ListingID` INT NOT NULL,
   PRIMARY KEY (`BeginDate`, `EndDate`, `ListingID`),
-  CONSTRAINT `ListingID`
+  CONSTRAINT `fk_Listing_ListingID`
     FOREIGN KEY (`ListingID`)
     REFERENCES `airbnb`.`Listing` (`ListingID`)
-    ON DELETE NO CASCADE
-    ON UPDATE NO CASCADE)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
@@ -64,19 +64,19 @@ ENGINE = InnoDB;
 -- Table `airbnb`.`Listing_has_Amenities`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Listing_has_Amenities` (
-  `Listing_ListingID` VARCHAR(45) NOT NULL,
+  `Listing_ListingID` INT NOT NULL,
   `Amenities_idAmenities` INT NOT NULL,
   PRIMARY KEY (`Listing_ListingID`, `Amenities_idAmenities`),
   CONSTRAINT `fk_Listing_has_Amenities_Listing1`
     FOREIGN KEY (`Listing_ListingID`)
     REFERENCES `airbnb`.`Listing` (`ListingID`)
-    ON DELETE NO CASCADE
-    ON UPDATE NO CASCADE,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Listing_has_Amenities_Amenities1`
     FOREIGN KEY (`Amenities_idAmenities`)
     REFERENCES `airbnb`.`Amenities` (`idAmenities`)
-    ON DELETE NO CASCADE
-    ON UPDATE NO CASCADE)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
@@ -131,8 +131,8 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Users` (
   CONSTRAINT `fk_Users_Occupation`
     FOREIGN KEY (`Occupation`)
     REFERENCES `airbnb`.`Users_has_Occupation` (`Occupation_idOccupation`)
-    ON DELETE SET NULL
-    ON UPDATE NO CASCADE)
+    ON DELETE NO ACTION
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
@@ -140,7 +140,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Users_Host_Listing` (
   `Users_SIN` INT NOT NULL,
-  `Listing_ListingID` VARCHAR(45) NOT NULL,
+  `Listing_ListingID` INT NOT NULL,
   PRIMARY KEY (`Users_SIN`, `Listing_ListingID`),
   CONSTRAINT `fk_Users_has_Listing_Users1`
     FOREIGN KEY (`Users_SIN`)
@@ -159,7 +159,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Users_rent_Listing` (
   `Users_SIN` INT NOT NULL,
-  `Listing_ListingID` VARCHAR(45) NOT NULL,
+  `Listing_ListingID` INT NOT NULL,
   `Credit_Card` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`Users_SIN`, `Listing_ListingID`),
   CONSTRAINT `fk_Users_has_Listing_Users2`
@@ -189,8 +189,8 @@ ENGINE = InnoDB;
 -- Table `airbnb`.`Address_has_Listing`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Address_has_Listing` (
-  `Address_Postal_Code` INT NOT NULL,
-  `Listing_ListingID` VARCHAR(45) NOT NULL,
+  `Address_Postal_Code` VARCHAR(6) NOT NULL,
+  `Listing_ListingID` INT NOT NULL,
   PRIMARY KEY (`Address_Postal_Code`, `Listing_ListingID`),
   CONSTRAINT `fk_Address_has_Listing_Address1`
     FOREIGN KEY (`Address_Postal_Code`)
@@ -219,7 +219,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Users_has_Address` (
   `Users_SIN` INT NOT NULL,
-  `Address_Postal_Code` INT NOT NULL,
+  `Address_Postal_Code` VARCHAR(6) NOT NULL,
   PRIMARY KEY (`Users_SIN`, `Address_Postal_Code`),
   CONSTRAINT `fk_Users_has_Address_Users1`
     FOREIGN KEY (`Users_SIN`)
@@ -238,9 +238,9 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Rating` (
   `Users_Host_Listing_Users_SIN` INT NOT NULL,
-  `Users_Host_Listing_Listing_ListingID` VARCHAR(45) NOT NULL,
+  `Users_Host_Listing_Listing_ListingID` INT NOT NULL,
   `Users_rent_Listing_Users_SIN` INT NOT NULL,
-  `Users_rent_Listing_Listing_ListingID` VARCHAR(45) NOT NULL,
+  `Users_rent_Listing_Listing_ListingID` INT NOT NULL,
   PRIMARY KEY (`Users_Host_Listing_Users_SIN`, `Users_Host_Listing_Listing_ListingID`, `Users_rent_Listing_Users_SIN`, `Users_rent_Listing_Listing_ListingID`),
   CONSTRAINT `fk_Users_Host_Listing_has_Users_rent_Listing_Users_Host_Listing1`
     FOREIGN KEY (`Users_Host_Listing_Users_SIN` , `Users_Host_Listing_Listing_ListingID`)
@@ -260,9 +260,9 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `airbnb`.`Comment` (
   `idComment` INT NOT NULL,
   `Users_Host_Listing_Users_SIN` INT NOT NULL,
-  `Users_Host_Listing_Listing_ListingID` VARCHAR(45) NOT NULL,
+  `Users_Host_Listing_Listing_ListingID` INT NOT NULL,
   `Users_rent_Listing_Users_SIN` INT NOT NULL,
-  `Users_rent_Listing_Listing_ListingID` VARCHAR(45) NOT NULL,
+  `Users_rent_Listing_Listing_ListingID` INT NOT NULL,
   PRIMARY KEY (`idComment`),
   CONSTRAINT `fk_Comment_Users_Host_Listing1`
     FOREIGN KEY (`Users_Host_Listing_Users_SIN` , `Users_Host_Listing_Listing_ListingID`)
@@ -348,7 +348,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Listing Comments` (
   `Users_SIN` INT NOT NULL,
-  `Listing_ListingID` VARCHAR(45) NOT NULL,
+  `Listing_ListingID` INT NOT NULL,
   `Comment` MEDIUMTEXT NOT NULL,
   PRIMARY KEY (`Users_SIN`, `Listing_ListingID`),
   CONSTRAINT `fk_Users_has_Listing_Users3`
@@ -408,7 +408,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Listing Rating` (
   `Users_SIN` INT NOT NULL,
-  `Listing_ListingID` VARCHAR(45) NOT NULL,
+  `Listing_ListingID` INT NOT NULL,
   `Rating` INT NOT NULL,
   PRIMARY KEY (`Users_SIN`, `Listing_ListingID`),
   CONSTRAINT `fk_Users_has_Listing_Users4`
