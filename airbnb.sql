@@ -1,16 +1,7 @@
 
--- -----------------------------------------------------
--- Schema airbnb
--- -----------------------------------------------------
 CREATE SCHEMA IF NOT EXISTS `airbnb` DEFAULT CHARACTER SET utf8 ;
--- -----------------------------------------------------
--- Schema new_schema1
--- -----------------------------------------------------
 USE `airbnb` ;
 
--- -----------------------------------------------------
--- Table `airbnb`.`HomeType`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`HomeType` (
   `idHomeType` INT NOT NULL AUTO_INCREMENT,
   `Type` VARCHAR(45) NOT NULL,
@@ -18,9 +9,6 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`HomeType` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `airbnb`.`Listing`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Listing` (
   `ListingID` INT NOT NULL AUTO_INCREMENT,
   `Latitutude` VARCHAR(45) NOT NULL,
@@ -34,9 +22,6 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Listing` (
     ON UPDATE NO CASCADE)
 ENGINE = InnoDB;
 
--- -----------------------------------------------------
--- Table `airbnb`.`Calendar`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Calendar` (
   `BeginDate` DATE NOT NULL,
   `RentalPrice` DOUBLE NOT NULL,
@@ -50,9 +35,6 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Calendar` (
     ON UPDATE NO CASCADE)
 ENGINE = InnoDB;
 
--- -----------------------------------------------------
--- Table `airbnb`.`Amenities`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Amenities` (
   `idAmenities` INT NOT NULL AUTO_INCREMENT,
   `Item` VARCHAR(45) NOT NULL,
@@ -60,9 +42,6 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Amenities` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `airbnb`.`Listing_has_Amenities`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Listing_has_Amenities` (
   `Listing_ListingID` VARCHAR(45) NOT NULL,
   `Amenities_idAmenities` INT NOT NULL,
@@ -79,27 +58,18 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Listing_has_Amenities` (
     ON UPDATE NO CASCADE)
 ENGINE = InnoDB;
 
--- -----------------------------------------------------
--- Table `airbnb`.`Host_Profile`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Host_Profile` (
   `idHost_Profile` INT NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idHost_Profile`))
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `airbnb`.`Renter_Profile`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Renter_Profile` (
   `idRenter_Profile` INT NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`idRenter_Profile`))
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `airbnb`.`Users_has_Occupation`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Users_has_Occupation` (
   `Occupation_idOccupation` INT NOT NULL AUTO_INCREMENT,
   `Occupation_name` VARCHAR(45) NOT NULL,
@@ -107,15 +77,12 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Users_has_Occupation` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `airbnb`.`Users`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Users` (
   `SIN` INT NOT NULL,
   `Date_of_Birth` VARCHAR(45) NOT NULL,
   `Full_Name` VARCHAR(45) NOT NULL,
-  `Host_Profile_idHost_Profile` INT NOT NULL,
-  `Renter_Profile_idRenter_Profile` INT NOT NULL,
+  `Host_Profile_idHost_Profile` INT,
+  `Renter_Profile_idRenter_Profile` INT,
   `Occupation` INT NOT NULL,
   PRIMARY KEY (`SIN`),
   CONSTRAINT `fk_Users_Host_Profile1`
@@ -135,9 +102,6 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Users` (
     ON UPDATE NO CASCADE)
 ENGINE = InnoDB;
 
--- -----------------------------------------------------
--- Table `airbnb`.`Users_Host_Listing`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Users_Host_Listing` (
   `Users_SIN` INT NOT NULL,
   `Listing_ListingID` VARCHAR(45) NOT NULL,
@@ -154,9 +118,6 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Users_Host_Listing` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
--- -----------------------------------------------------
--- Table `airbnb`.`Users_rent_Listing`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Users_rent_Listing` (
   `Users_SIN` INT NOT NULL,
   `Listing_ListingID` VARCHAR(45) NOT NULL,
@@ -174,9 +135,6 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Users_rent_Listing` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
--- -----------------------------------------------------
--- Table `airbnb`.`Address`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Address` (
   `Postal_Code` VARCHAR(6) NOT NULL,
   `City` VARCHAR(45) NOT NULL,
@@ -185,9 +143,6 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Address` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `airbnb`.`Address_has_Listing`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Address_has_Listing` (
   `Address_Postal_Code` INT NOT NULL,
   `Listing_ListingID` VARCHAR(45) NOT NULL,
@@ -204,9 +159,6 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Address_has_Listing` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
--- -----------------------------------------------------
--- Table `airbnb`.`Experience`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Experience` (
   `idExperience` INT NOT NULL,
   `Experience` VARCHAR(45) NOT NULL,
@@ -214,9 +166,6 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Experience` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `airbnb`.`Users_has_Address`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Users_has_Address` (
   `Users_SIN` INT NOT NULL,
   `Address_Postal_Code` INT NOT NULL,
@@ -233,9 +182,6 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Users_has_Address` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
--- -----------------------------------------------------
--- Table `airbnb`.`Rating`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Rating` (
   `Users_Host_Listing_Users_SIN` INT NOT NULL,
   `Users_Host_Listing_Listing_ListingID` VARCHAR(45) NOT NULL,
@@ -254,9 +200,6 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Rating` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
--- -----------------------------------------------------
--- Table `airbnb`.`Comment`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Comment` (
   `idComment` INT NOT NULL,
   `Users_Host_Listing_Users_SIN` INT NOT NULL,
@@ -276,9 +219,6 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Comment` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
--- -----------------------------------------------------
--- Table `airbnb`.`Comment_On_Renter_Profile`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Comment_On_Renter_Profile` (
   `Comment_idComment` INT NOT NULL,
   `Renter_Profile_idRenter_Profile` INT NOT NULL,
@@ -296,9 +236,6 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Comment_On_Renter_Profile` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
--- -----------------------------------------------------
--- Table `airbnb`.`Comment_On_Host_Profile`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Comment_On_Host_Profile` (
   `Host_Profile_idHost_Profile` INT NOT NULL,
   `Host_Profile_Users_SIN` INT NOT NULL,
@@ -316,9 +253,6 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Comment_On_Host_Profile` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
--- -----------------------------------------------------
--- Table `airbnb`.`Profile Comments`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Profile Comments` (
   `Users_SIN` INT NOT NULL,
   `Renter_Profile_idRenter_Profile` INT NOT NULL,
@@ -343,9 +277,6 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Profile Comments` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `airbnb`.`Listing Comments`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Listing Comments` (
   `Users_SIN` INT NOT NULL,
   `Listing_ListingID` VARCHAR(45) NOT NULL,
@@ -363,9 +294,6 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Listing Comments` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
--- -----------------------------------------------------
--- Table `airbnb`.`Host Comments`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Host Comments` (
   `Host_Profile_idHost_Profile` INT NOT NULL,
   `Users_SIN` INT NOT NULL,
@@ -383,9 +311,6 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Host Comments` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
--- -----------------------------------------------------
--- Table `airbnb`.`Renter Comment`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Renter Comment` (
   `Users_SIN` INT NOT NULL,
   `Renter_Profile_idRenter_Profile` INT NOT NULL,
@@ -403,9 +328,6 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Renter Comment` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
--- -----------------------------------------------------
--- Table `airbnb`.`Listing Rating`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Listing Rating` (
   `Users_SIN` INT NOT NULL,
   `Listing_ListingID` VARCHAR(45) NOT NULL,
@@ -423,9 +345,6 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Listing Rating` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
--- -----------------------------------------------------
--- Table `airbnb`.`Renter Rating`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Renter Rating` (
   `Users_SIN` INT NOT NULL,
   `Renter_Profile_idRenter_Profile` INT NOT NULL,
@@ -444,9 +363,6 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Renter Rating` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `airbnb`.`Host Rating`
--- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `airbnb`.`Host Rating` (
   `Host_Profile_idHost_Profile` INT NOT NULL,
   `Users_SIN` INT NOT NULL,

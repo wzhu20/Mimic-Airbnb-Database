@@ -63,7 +63,10 @@ public class SQLController {
     ArrayList<String> output = new ArrayList<String>();
     try {
       DatabaseMetaData meta = conn.getMetaData();
-      ResultSet schemas = meta.getTables(null, null, "%", null);
+      // ResultSet schemas = meta.getTableTypes();
+      String[] tableTypes = new String[1];
+      tableTypes[0] = "TABLE";
+      ResultSet schemas = meta.getTables(null, "mydb.", "%", tableTypes);
       // ResultSet catalogs = meta.getCatalogs();
       while (schemas.next()) {
         output.add(schemas.getString("TABLE_NAME"));

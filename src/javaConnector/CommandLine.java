@@ -82,6 +82,9 @@ public class CommandLine {
             case 4:
               this.printColSchema();
               break;
+            case 5:
+              this.createUser();
+              break;
             default:
               break;
           }
@@ -109,6 +112,7 @@ public class CommandLine {
     System.out.println("2. Select a record.");
     System.out.println("3. Print schema.");
     System.out.println("4. Print table schema.");
+    System.out.println("5. Create a new user");
     System.out.print("Choose one of the previous options [0-4]: ");
   }
 
@@ -118,11 +122,14 @@ public class CommandLine {
   private String[] getCredentials() {
     String[] cred = new String[3];
     System.out.print("Username: ");
-    cred[0] = sc.nextLine();
+    cred[0] = "root";
+    // cred[0] = sc.nextLine();
     System.out.print("Password: ");
-    cred[1] = sc.nextLine();
+    cred[1] = "1234";
+    // cred[1] = sc.nextLine();
     System.out.print("Database: ");
-    cred[2] = sc.nextLine();
+    // cred[2] = sc.nextLine();
+    cred[2] = "airbnb";
     return cred;
   }
 
@@ -191,6 +198,10 @@ public class CommandLine {
     System.out.println("");
     System.out.println("Rows affected: " + rowsAff);
     System.out.println("");
+  }
+
+  private void createUser() {
+
   }
 
 }
