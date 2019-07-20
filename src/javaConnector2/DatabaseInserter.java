@@ -113,6 +113,10 @@ public class DatabaseInserter {
     return id;
   }
 
+  protected static int insertAddress(String postal, String Street, String city) {
+
+  }
+
   /**
    * insert an accountType into the accountType table.
    * 

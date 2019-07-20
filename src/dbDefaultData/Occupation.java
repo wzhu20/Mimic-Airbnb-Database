@@ -1,4 +1,4 @@
-package javaConnector2;
+package dbDefaultData;
 
 public enum Occupation {
   JOBLESS, DOCTOR, LAWYER, ENGINEER, SCIENTIST

@@ -2,6 +2,9 @@ package javaConnector2;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import dbDefaultData.Amenities;
+import dbDefaultData.HomeType;
+import dbDefaultData.Occupation;
 
 public class InitializeDatabase {
 
