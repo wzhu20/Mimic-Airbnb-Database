@@ -15,12 +15,16 @@ public class InitializeDatabase {
     try {
       initializeDatabase(connection);
       System.out.println("db setup successful");
-      // initializeAmenTable(connection);
+
       initializeHomeTypes(connection);
       System.out.println("hometype setup successful");
 
-      // initializeOccupations(connection);
-      // initializeFirstUser(connection);
+      initializeAmenTable(connection);
+      System.out.println("amenities setup successful");
+
+      initializeOccupations(connection);
+      System.out.println("occupation setup successful");
+      initializeFirstUser(connection);
 
     } catch (Exception e) {
       e.printStackTrace();
@@ -104,7 +108,7 @@ public class InitializeDatabase {
     try {
       for (Occupation occ : Occupation.values()) {
         occupationStr = occ.toString();
-        DatabaseInserter.insertOccupation(occupationStr, connection);
+        DatabaseInserter.insertOccupations(occupationStr, connection);
       }
     } catch (Exception e) {
       // TODO improve this block
@@ -123,9 +127,9 @@ public class InitializeDatabase {
     String street = "fake";
     String city = "city";
     String dob = "Jan 1";
-    int sin = 100;
+    String sin = "100";
     try {
-      return DatabaseInserter.insertNewUser(sin, dob, name, null, null, connection);
+      return DatabaseInserter.insertNewUser(sin, dob, name, connection);
     } catch (Exception e) {
       // TODO improve this.
       e.printStackTrace();
