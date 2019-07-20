@@ -49,7 +49,7 @@ public class DatabaseDriver {
 
   /*
    * THIS IS WHERE THE SQL TABLE QUERIES SHOULD GO BECAUSE THIS IS THE FUNCTION THAT CREATES THE
-   * DATABASE
+   * DATABASE https://coderanch.com/t/306966/databases/Execute-sql-file-java for parser
    */
 
 
@@ -80,6 +80,8 @@ public class DatabaseDriver {
           statement.executeUpdate(query[i]);
         }
       }
+      System.out.println("finished sql query");
+      return true;
     } catch (Exception e) {
       e.printStackTrace();
     }

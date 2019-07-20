@@ -1,10 +1,5 @@
 package javaConnector2;
 
-import com.bank.database.DatabaseInsertException;
-import com.bank.database.DatabaseInserter;
-import com.bank.generics.AccountTypes;
-import com.bank.generics.Roles;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Connection;
@@ -21,7 +16,8 @@ public class DatabaseInsertHelper extends DatabaseInserter {
    * @return 0 if successful, -1 otherwise.
    * @SQLException if the connection is unsuccessful.
    */
-  public static int insertAccount(String name, BigDecimal balance, int typeId) throws SQLException, DatabaseInsertException {
+  public static int insertAccount(String name, BigDecimal balance, int typeId)
+      throws SQLException, DatabaseInsertException {
     boolean cdt1 = Checker.checkValidAccountsName(name);
     boolean cdt2 = Checker.checkValidAccountsBalance(balance);
     boolean cdt3 = Checker.checkValidAccountsType(typeId);
@@ -115,7 +111,8 @@ public class DatabaseInsertHelper extends DatabaseInserter {
    * @return true if successful, false otherwise.
    * @SQLException if the connection is unsuccessful.
    */
-  public static int insertUserAccount(int userId, int accountId) throws SQLException, DatabaseInsertException {
+  public static int insertUserAccount(int userId, int accountId)
+      throws SQLException, DatabaseInsertException {
     boolean cdt1 = Checker.checkValidUserAccountUserId(userId);
     boolean cdt2 = Checker.checkValidUserAccountAccountId(accountId, userId);
     // if it is a valid user id and account id, establish a connection

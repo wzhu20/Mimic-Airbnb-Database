@@ -1,6 +1,5 @@
 package javaConnector2;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -12,12 +11,17 @@ public class InitializeDatabase {
   public static void initialize() {
 
     Connection connection = DatabaseDriver.connectOrCreateDataBase();
+    System.out.println("connection successful");
     try {
       initializeDatabase(connection);
-      initializeAmenTable(connection);
+      System.out.println("db setup successful");
+      // initializeAmenTable(connection);
       initializeHomeTypes(connection);
-      initializeOccupations(connection);
-      initializeFirstUser(connection);
+      System.out.println("hometype setup successful");
+
+      // initializeOccupations(connection);
+      // initializeFirstUser(connection);
+
     } catch (Exception e) {
       e.printStackTrace();
     } finally {
@@ -40,30 +44,27 @@ public class InitializeDatabase {
    *         int accountId = initializeFirstUser(connection);
    * 
    *         associateAccount(userId, accountId, connection); connection.close(); }
-   */
-  /**
-   * Update stuff in the database to validate update commands worked. DO NOT CALL THIS ON YOUR FINAL
-   * CODE!
+   * 
+   *         /** Update stuff in the database to validate update commands worked. DO NOT CALL THIS
+   *         ON YOUR FINAL CODE!
    * 
    * @throws SQLException thrown if something goes wrong.
+   * 
+   *         public static void update() throws SQLException { Connection connection =
+   *         DatabaseDriver.connectOrCreateDataBase();
+   * 
+   *         DatabaseUpdater.updateAccountBalance(new BigDecimal("99.92"), 1, connection);
+   *         DatabaseUpdater.updateAccountName("New John", 1, connection);
+   *         DatabaseUpdater.updateAccountType(2, 1, connection);
+   *         DatabaseUpdater.updateAccountTypeInterestRate(new BigDecimal("0.4"), 1, connection);
+   *         DatabaseUpdater.updateAccountTypeName("THIS IS BAD", 1, connection);
+   *         DatabaseUpdater.updateRoleName("THIS TOO IS BAD", 1, connection);
+   *         DatabaseUpdater.updateUserAddress("123 Four Five Street", 1, connection);
+   *         DatabaseUpdater.updateUserAge(102, 1, connection); DatabaseUpdater.updateUserName("Sir
+   *         Bob Marley", 1, connection); DatabaseUpdater.updateUserRole(2, 1, connection);
+   * 
+   *         connection.close(); }
    */
-  public static void update() throws SQLException {
-    Connection connection = DatabaseDriver.connectOrCreateDataBase();
-
-    DatabaseUpdater.updateAccountBalance(new BigDecimal("99.92"), 1, connection);
-    DatabaseUpdater.updateAccountName("New John", 1, connection);
-    DatabaseUpdater.updateAccountType(2, 1, connection);
-    DatabaseUpdater.updateAccountTypeInterestRate(new BigDecimal("0.4"), 1, connection);
-    DatabaseUpdater.updateAccountTypeName("THIS IS BAD", 1, connection);
-    DatabaseUpdater.updateRoleName("THIS TOO IS BAD", 1, connection);
-    DatabaseUpdater.updateUserAddress("123 Four Five Street", 1, connection);
-    DatabaseUpdater.updateUserAge(102, 1, connection);
-    DatabaseUpdater.updateUserName("Sir Bob Marley", 1, connection);
-    DatabaseUpdater.updateUserRole(2, 1, connection);
-
-    connection.close();
-  }
-
   private static void initializeDatabase(Connection connection) {
     try {
       DatabaseDriver.initialize(connection);
