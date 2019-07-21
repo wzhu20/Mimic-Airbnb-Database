@@ -40,7 +40,7 @@ public class CommandLine {
   public boolean execute() {
     if (sc != null) {
       System.out.println("****AIRBNB SYSTEM****");
-
+      UserOption option = null;
       String input = "";
       int choice = -1;
       do {
@@ -50,22 +50,17 @@ public class CommandLine {
           choice = Integer.parseInt(input);
           switch (choice) { // Activate the desired functionality
             case 1:
-              this.insertOperator();
-              break;
-            case 2:
-              this.selectOperator();
-              break;
-            case 3:
-              this.printSchema();
-              break;
-            case 4:
-              this.printColSchema();
+              option = new CreateNewUser(sc);
               break;
             default:
+              option = new NullOption(sc);
               break;
           }
+          option.execute();
         } catch (NumberFormatException e) {
           input = "-1";
+        } catch (Exception e) {
+          e.printStackTrace();
         }
       } while (input.compareTo("0") != 0);
 
@@ -84,12 +79,12 @@ public class CommandLine {
   private static void menu() {
     System.out.println("=========MENU=========");
     System.out.println("0. Exit.");
-    System.out.println("1. Insert a record.");
-    System.out.println("2. Select a record.");
-    System.out.println("3. Print schema.");
-    System.out.println("4. Print table schema.");
-    System.out.println("5. Create a new user");
-    System.out.print("Choose one of the previous options [0-4]: ");
+    System.out.println("1. create a new user");
+    /*
+     * System.out.println("2. Select a record."); System.out.println("3. Print schema.");
+     * System.out.println("4. Print table schema."); System.out.println("5. Create a new user");
+     * System.out.print("Choose one of the previous options [0-4]: ");
+     */
   }
 
   /*

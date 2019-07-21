@@ -11,7 +11,7 @@ public class InitializeDatabase {
   /**
    * Initialize the database with it's first user and all tables setup.
    */
-  public static void initialize() {
+  public static Connection initialize() {
 
     Connection connection = DatabaseDriver.connectOrCreateDataBase();
     System.out.println("connection successful");
@@ -28,9 +28,10 @@ public class InitializeDatabase {
       initializeOccupations(connection);
       System.out.println("occupation setup successful");
       initializeFirstUser(connection);
-
+      return connection;
     } catch (Exception e) {
       e.printStackTrace();
+      return connection;
     } finally {
       try {
         connection.close();
@@ -38,7 +39,6 @@ public class InitializeDatabase {
         System.out.println("Unable to close connection");
       }
     }
-
   }
 
   /**
@@ -126,9 +126,6 @@ public class InitializeDatabase {
    */
   private static int initializeFirstUser(Connection connection) {
     String name = "John Smith";
-    String postalCode = "a1b2c3";
-    String street = "fake";
-    String city = "city";
     String dob = "Jan 1";
     String sin = "100";
     try {

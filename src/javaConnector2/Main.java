@@ -1,5 +1,6 @@
 package javaConnector2;
 
+import userCommands.CommandLine;
 
 public class Main {
 
@@ -9,6 +10,10 @@ public class Main {
    */
   public static void main(String[] args) {
     InitializeDatabase.initialize();
+    CommandLine commandLine = new CommandLine();
+    if (commandLine.startSession() && commandLine.execute()) {
+      commandLine.endSession();
+    }
   }
 
 }

@@ -22,7 +22,7 @@ public class DatabaseDriver {
     Connection connection = null;
     try {
       Class.forName("com.mysql.cj.jdbc.Driver");
-      connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1/", user, pass);
+      connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1/airbnb", user, pass);
 
     } catch (Exception e) {
       System.out.println("Something went wrong with your connection! see below details: ");

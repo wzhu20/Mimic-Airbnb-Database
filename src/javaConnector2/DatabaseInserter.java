@@ -113,7 +113,35 @@ public class DatabaseInserter {
     return id;
   }
 
-  protected static int insertAddress(String postal, String Street, String city) {
+  protected static int insertUserAddress(String postal, String sin, Connection connection) {
+    String sql = "INSERT INTO users_has_address (Users_SIN, address_postal_code) VALUES(?,?);";
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setString(1, sin);
+      preparedStatement.setString(2, postal);
+      int id = preparedStatement.executeUpdate();
+      return id;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return -1;
+
+  }
+
+  protected static int insertAddress(String postal, String city, String country,
+      Connection connection) {
+    String sql = "INSERT INTO address (Postal_code, city, country) VALUES(?,?,?);";
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setString(1, postal);
+      preparedStatement.setString(2, city);
+      preparedStatement.setString(3, country);
+      int id = preparedStatement.executeUpdate();
+      return id;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return -1;
 
   }
 
@@ -184,7 +212,7 @@ public class DatabaseInserter {
    * preparedStatement.setString(2, password); preparedStatement.executeUpdate(); } catch (Exception
    * e) { e.printStackTrace(); } return false; }
    */
-  private static int insertUser(String sin, String dob, String name, int hostId, int rentId,
+  protected static int insertUser(String sin, String dob, String name, int hostId, int rentId,
       Integer occupation, Connection connection) {
     String sql = "INSERT INTO USERS(SIN, DATE_OF_BIRTH, Full_Name, Host_Profile_idHost_Profile, "
         + "Renter_Profile_idRenter_Profile, OCCUPATION) VALUES(?,?,?,?,?,?);";

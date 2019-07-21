@@ -1,6 +1,8 @@
 package userCommands;
 
+import java.sql.SQLException;
 import java.util.Scanner;
+import javaConnector2.DatabaseInsertException;
 
 public abstract class UserOption {
   Scanner sc;
@@ -9,5 +11,5 @@ public abstract class UserOption {
     this.sc = sc;
   }
 
-  abstract void execute();
+  abstract void execute() throws NumberFormatException, SQLException, DatabaseInsertException;
 }
