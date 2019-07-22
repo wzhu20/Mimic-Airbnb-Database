@@ -51,6 +51,21 @@ public class QueriesHelper {
     }
     return listingsNear;
   }
+  
+  public static List<List<String>> queryByAdjacentPostalCodes(String postalCode) {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    List<List<String>> result = Queries.getPostalCodes(connection);
+    
+    List<List<String>> adjacentListing = new ArrayList<>();
+    adjacentListing.add(result.get(0)); // put column titles
+    for (int i = 1; i < result.size(); i++) {
+      String pc = result.get(i).get(4);
+      if (postalCode.substring(0, 2).equalsIgnoreCase(pc.substring(0, 2))) {
+        adjacentListing.add(result.get(i));
+      }
+    }
+    return adjacentListing;
+  }
   // THIS CODE WAS TAKEN FROM http://rosettacode.org/wiki/Haversine_formula#Java
   // TO CALCULATE latitude and longitudes in a certain distance
   private static final double R = 6372.8; // In kilometers

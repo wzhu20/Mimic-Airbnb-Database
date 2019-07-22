@@ -87,6 +87,40 @@ public class Queries {
     return result;
   }
   
+  public static List<List<String>> getPostalCodes(Connection connection) {
+    String sql = "SELECT U.Full_Name, L.ListingID, L.Latitutude, L.Longitude, A1.Address_Postal_Code, H1.Type AS 'HOUSE TYPE'"
+               + " FROM Address_has_Listing A1, Listing L, Users_Host_Listing UH, Users U, HomeType H1"
+               + " WHERE A1.Listing_ListingID=L.ListingID AND L.ListingID=UH.Listing_ListingID"
+               + " AND UH.Users_SIN=U.SIN AND L.HomeType_idHomeType=H1.idHomeType";
+    
+List<List<String>> result = new ArrayList<>();
+    
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      ResultSet resultSet = preparedStatement.executeQuery();
+      ResultSetMetaData resultMeta = resultSet.getMetaData();
+      List<String> columnName = getColumnNames(resultMeta);
+      result.add(columnName);
+      
+      while (resultSet.next()) {
+        List<String> rowValues = new ArrayList<>();
+        rowValues.add(resultSet.getString(1));
+        rowValues.add(resultSet.getString(2));
+        rowValues.add(resultSet.getString(3));
+        rowValues.add(resultSet.getString(4));
+        rowValues.add(resultSet.getString(5));
+        rowValues.add(resultSet.getString(6));
+        result.add(rowValues);
+      }
+      
+      
+    } catch (SQLException e) {
+      System.out.println("Couldnt query postal codes");
+      e.printStackTrace();
+    }
+    return result;
+  }
+  
   private static List<String> getColumnNames(ResultSetMetaData resultMeta) {
     List<String> columnName = new ArrayList<>();
     
