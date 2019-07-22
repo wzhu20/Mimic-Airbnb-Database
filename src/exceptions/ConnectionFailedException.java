@@ -1,4 +1,4 @@
-package javaConnector2;
+package exceptions;
 
 public class ConnectionFailedException extends Exception {
 

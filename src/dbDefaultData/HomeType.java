@@ -1,4 +1,4 @@
-package javaConnector2;
+package dbDefaultData;
 
 public enum HomeType {
   HUT, BUNGALOW, COTTAGE, SINGLE, DOUBLE, APART
