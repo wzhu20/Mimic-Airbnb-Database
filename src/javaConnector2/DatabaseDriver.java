@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import exceptions.ConnectionFailedException;
 
 
 
@@ -17,18 +18,35 @@ public class DatabaseDriver {
    * @return the database connection.
    */
   protected static Connection connectOrCreateDataBase() {
-    String user = "root";
-    String pass = "1234";
+    String string = new String();
+    StringBuffer stringBuff = new StringBuffer();
+    String[] info = null;
+    try {
+      FileReader fileReader = new FileReader(new File("pass.txt"));
+      BufferedReader buffReader = new BufferedReader(fileReader);
+
+      while ((string = buffReader.readLine()) != null) {
+        stringBuff.append(string);
+      }
+      buffReader.close();
+      fileReader.close();
+      info = stringBuff.toString().split(";");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    String user = info[0];
+    String pass = info[1];
+    String dbName = info[2];
     Connection connection = null;
     try {
       Class.forName("com.mysql.cj.jdbc.Driver");
-      connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1/", user, pass);
+      connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1/" + dbName, user, pass);
 
     } catch (Exception e) {
       System.out.println("Something went wrong with your connection! see below details: ");
       e.printStackTrace();
     }
-
+    System.out.println("connection successful");
     return connection;
   }
 
@@ -66,7 +84,7 @@ public class DatabaseDriver {
         stringBuff.append(string);
       }
       buffReader.close();
-
+      fileReader.close();
       // here is our splitter ! We use ";" as a delimiter for each request
       // then we are sure to have well formed statements
       String[] query = stringBuff.toString().split(";");
