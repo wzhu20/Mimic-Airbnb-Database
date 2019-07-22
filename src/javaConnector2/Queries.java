@@ -87,7 +87,7 @@ public class Queries {
     return result;
   }
   
-  public static List<List<String>> getPostalCodes(Connection connection) {
+  public static List<List<String>> queryPostalCodes(Connection connection) {
     String sql = "SELECT U.Full_Name, L.ListingID, L.Latitutude, L.Longitude, A1.Address_Postal_Code, H1.Type AS 'HOUSE TYPE'"
                + " FROM Address_has_Listing A1, Listing L, Users_Host_Listing UH, Users U, HomeType H1"
                + " WHERE A1.Listing_ListingID=L.ListingID AND L.ListingID=UH.Listing_ListingID"
@@ -116,6 +116,49 @@ List<List<String>> result = new ArrayList<>();
       
     } catch (SQLException e) {
       System.out.println("Couldnt query postal codes");
+      e.printStackTrace();
+    }
+    return result;
+  }
+  
+  // this doesn't work as intended right now...
+  public static List<List<String>> queryListingAmenities(Connection connection, List<String> amenities) {
+    String sql = "SELECT U.Full_Name, L.ListingID, L.Latitutude, L.Longitude, H1.Type AS 'HOUSE TYPE'"
+               + " FROM Listing L, Listing_has_Amenities LA, Amenities A, HomeType H1, Users_Host_Listing UH, Users U"
+               + " WHERE L.ListingID=LA.Listing_ListingID AND UH.Users_SIN=U.SIN AND L.HomeType_idHomeType=H1.idHomeType"
+               + " AND LA.Amenities_idAmenities=A.idAmenities AND A.Item IN (";
+    
+    for (int i = 0; i < amenities.size(); i++) {
+      sql += "?, ";
+    }
+    sql = sql.substring(0, sql.length() - 2);
+    sql += ") GROUP BY L.ListingID, U.Full_Name, L.Latitutude, L.Longitude, 'HOUSE TYPE'";
+    
+    List<List<String>> result = new ArrayList<>();
+    
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      for (int i = 0; i < amenities.size(); i++) {
+        preparedStatement.setString(i+1, amenities.get(i));
+      }
+      ResultSet resultSet = preparedStatement.executeQuery();
+      ResultSetMetaData resultMeta = resultSet.getMetaData();
+      List<String> columnName = getColumnNames(resultMeta);
+      result.add(columnName);
+      
+      while (resultSet.next()) {
+        List<String> rowValues = new ArrayList<>();
+        rowValues.add(resultSet.getString(1));
+        rowValues.add(resultSet.getString(2));
+        rowValues.add(resultSet.getString(3));
+        rowValues.add(resultSet.getString(4));
+        rowValues.add(resultSet.getString(5));
+        result.add(rowValues);
+      }
+      
+      
+    } catch (SQLException e) {
+      System.out.println("Couldnt query by amenities");
       e.printStackTrace();
     }
     return result;

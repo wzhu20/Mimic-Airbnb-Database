@@ -49,12 +49,18 @@ public class QueriesHelper {
         listingsNear.add(result.get(i));
       }
     }
+    try {
+      connection.close();
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     return listingsNear;
   }
   
   public static List<List<String>> queryByAdjacentPostalCodes(String postalCode) {
     Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
-    List<List<String>> result = Queries.getPostalCodes(connection);
+    List<List<String>> result = Queries.queryPostalCodes(connection);
     
     List<List<String>> adjacentListing = new ArrayList<>();
     adjacentListing.add(result.get(0)); // put column titles
@@ -64,7 +70,25 @@ public class QueriesHelper {
         adjacentListing.add(result.get(i));
       }
     }
+    try {
+      connection.close();
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
     return adjacentListing;
+  }
+  
+  public static List<List<String>> queryByAmenities(List<String> amenities) {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    List<List<String>> result = Queries.queryListingAmenities(connection, amenities);
+    try {
+      connection.close();
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    return result;
   }
   // THIS CODE WAS TAKEN FROM http://rosettacode.org/wiki/Haversine_formula#Java
   // TO CALCULATE latitude and longitudes in a certain distance
