@@ -24,15 +24,26 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `airbnb`.`Calendar` (
   `BeginDate` DATE NOT NULL,
-  `RentalPrice` DOUBLE NOT NULL,
   `EndDate` DATE NOT NULL,
-  `ListingID` INT NOT NULL,
-  PRIMARY KEY (`BeginDate`, `EndDate`, `ListingID`),
-  CONSTRAINT `ListingID`
-    FOREIGN KEY (`ListingID`)
+  PRIMARY KEY (`BeginDate`, `EndDate`))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `airbnb`.`Listing_has_Calendar` (
+  `Listing_ListingID` INT NOT NULL,
+  `Calendar_BeginDate` DATE NOT NULL,
+  `Calendar_EndDate` DATE NOT NULL,
+  `RentalPrice` DOUBLE NOT NULL,
+  PRIMARY KEY (`Listing_ListingID`, `Calendar_BeginDate`, `Calendar_EndDate`),
+  CONSTRAINT `fk_Listing_has_Calendar1_Listing1`
+    FOREIGN KEY (`Listing_ListingID`)
     REFERENCES `airbnb`.`Listing` (`ListingID`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Listing_has_Calendar1_Calendar1`
+    FOREIGN KEY (`Calendar_BeginDate` , `Calendar_EndDate`)
+    REFERENCES `airbnb`.`Calendar` (`BeginDate` , `EndDate`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `airbnb`.`Amenities` (
