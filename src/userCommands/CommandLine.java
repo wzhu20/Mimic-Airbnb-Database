@@ -10,7 +10,7 @@ public class CommandLine {
   // Public functions - CommandLine State Functions
 
   /*
-   * Function used for initializing an istance of current class
+   * Function used for initializing an instance of current class
    */
   public boolean startSession() {
     boolean success = true;
@@ -84,6 +84,7 @@ public class CommandLine {
   }
 
 
+  @SuppressWarnings("unused")
   private static void userMenu() {
     System.out.println("=========MENU========");
     System.out.println("-11. (initialize database)");

@@ -11,7 +11,7 @@ public class Main {
   public static void main(String[] args) {
     CommandLine commandLine = new CommandLine();
     DatabaseDriver.connectOrCreateDataBase();
-    System.out.println("connection successful");
+
     if (commandLine.startSession() && commandLine.execute()) {
       commandLine.endSession();
     }

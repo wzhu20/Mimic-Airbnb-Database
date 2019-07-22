@@ -46,7 +46,7 @@ public class DatabaseDriver {
       System.out.println("Something went wrong with your connection! see below details: ");
       e.printStackTrace();
     }
-
+    System.out.println("connection successful");
     return connection;
   }
 

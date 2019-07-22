@@ -143,7 +143,6 @@ public class DatabaseInserter {
       e.printStackTrace();
     }
     return -1;
-
   }
 
   /**
