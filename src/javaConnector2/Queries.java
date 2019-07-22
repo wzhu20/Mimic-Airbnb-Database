@@ -35,12 +35,7 @@ public class Queries {
       
       // columns
       ResultSetMetaData resultMeta = resultSet.getMetaData();
-      int count = resultMeta.getColumnCount();
-      List<String> columnName = new ArrayList<>();
-      
-      for(int i = 1; i <= count; i++) {
-        columnName.add(resultMeta.getColumnLabel(i));
-      }
+      List<String> columnName = getColumnNames(resultMeta);
       
       result.add(columnName);
       
@@ -58,5 +53,53 @@ public class Queries {
       e.printStackTrace();
     }
     return result;
+  }
+  
+  public static List<List<String>> queryAllListingsNearLocation(Connection connection) {
+    String sql = "SELECT U.Full_Name, L.ListingID, L.Latitutude, L.Longitude, H1.Type AS 'HOUSE TYPE'"
+               + " FROM Listing L, Users_Host_Listing UH, Users U, HomeType H1"
+               + " WHERE UH.Users_SIN=U.SIN AND L.ListingID=UH.Listing_ListingID AND L.HomeType_idHomeType=H1.idHomeType";
+    
+    List<List<String>> result = new ArrayList<>();
+    
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      ResultSet resultSet = preparedStatement.executeQuery();
+      ResultSetMetaData resultMeta = resultSet.getMetaData();
+      List<String> columnName = getColumnNames(resultMeta);
+      result.add(columnName);
+      
+      while (resultSet.next()) {
+        List<String> rowValues = new ArrayList<>();
+        rowValues.add(resultSet.getString(1));
+        rowValues.add(resultSet.getString(2));
+        rowValues.add(resultSet.getString(3));
+        rowValues.add(resultSet.getString(4));
+        rowValues.add(resultSet.getString(5));
+        result.add(rowValues);
+      }
+      
+      
+    } catch (SQLException e) {
+      System.out.println("Couldnt query listings");
+      e.printStackTrace();
+    }
+    return result;
+  }
+  
+  private static List<String> getColumnNames(ResultSetMetaData resultMeta) {
+    List<String> columnName = new ArrayList<>();
+    
+      try {
+        int count = resultMeta.getColumnCount();
+        for(int i = 1; i <= count; i++) {
+          
+        columnName.add(resultMeta.getColumnLabel(i));
+        }
+      } catch (SQLException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+    return columnName;
   }
 }

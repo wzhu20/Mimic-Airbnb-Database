@@ -11,8 +11,8 @@ ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `airbnb`.`Listing` (
   `ListingID` INT NOT NULL AUTO_INCREMENT,
-  `Latitutude` VARCHAR(45) NOT NULL,
-  `Longitude` VARCHAR(45) NOT NULL,
+  `Latitutude` FLOAT(10) NOT NULL,
+  `Longitude` FLOAT(10) NOT NULL,
   `HomeType_idHomeType` INT NOT NULL,
   PRIMARY KEY (`ListingID`),
   CONSTRAINT `fk_Listing_HomeType1`
