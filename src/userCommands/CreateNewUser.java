@@ -3,7 +3,7 @@ package userCommands;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
-import javaConnector2.DatabaseInsertException;
+import exceptions.DatabaseInsertException;
 import javaConnector2.DatabaseInsertHelper;
 import javaConnector2.DatabaseSelectHelper;
 
@@ -39,6 +39,7 @@ public class CreateNewUser extends UserOption {
     }
 
     DatabaseInsertHelper.insertUser(sin, dob, name, Integer.parseInt(occ));
+    System.out.println("user created");
   }
 
 }

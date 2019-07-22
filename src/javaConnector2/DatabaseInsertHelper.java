@@ -2,6 +2,7 @@ package javaConnector2;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import exceptions.DatabaseInsertException;
 
 public class DatabaseInsertHelper extends DatabaseInserter {
 
@@ -23,6 +24,8 @@ public class DatabaseInsertHelper extends DatabaseInserter {
     // return -1;
 
   }
+
+
   /*
    * 
    * public static int insertAccount(String name, BigDecimal balance, int typeId) throws

@@ -2,7 +2,7 @@ package userCommands;
 
 import java.sql.SQLException;
 import java.util.Scanner;
-import javaConnector2.DatabaseInsertException;
+import exceptions.DatabaseInsertException;
 
 public abstract class UserOption {
   Scanner sc;

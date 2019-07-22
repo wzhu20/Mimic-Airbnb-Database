@@ -3,17 +3,17 @@ package userCommands;
 import java.sql.SQLException;
 import java.util.Scanner;
 import exceptions.DatabaseInsertException;
+import javaConnector2.InitializeDatabase;
 
-public class NullOption extends UserOption {
+public class Initialize extends UserOption {
 
-  protected NullOption(Scanner sc) {
+  protected Initialize(Scanner sc) {
     super(sc);
   }
 
   @Override
   void execute() throws NumberFormatException, SQLException, DatabaseInsertException {
-    System.out.println("null option");
-
+    InitializeDatabase.initialize();
   }
 
 }

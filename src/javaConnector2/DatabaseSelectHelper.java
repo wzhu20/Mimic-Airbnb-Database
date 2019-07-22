@@ -21,6 +21,7 @@ import com.bank.bank.user.CustomerImpl;
 import com.bank.bank.user.Teller;
 import com.bank.bank.user.TellerImpl;
 import com.bank.bank.user.User;
+import exceptions.DatabaseInsertException;
 
 public class DatabaseSelectHelper extends DatabaseSelector {
 

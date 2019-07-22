@@ -17,16 +17,9 @@ public class InitializeDatabase {
     System.out.println("connection successful");
     try {
       initializeDatabase(connection);
-      System.out.println("db setup successful");
-
       initializeHomeTypes(connection);
-      System.out.println("hometype setup successful");
-
       initializeAmenTable(connection);
-      System.out.println("amenities setup successful");
-
       initializeOccupations(connection);
-      System.out.println("occupation setup successful");
       initializeFirstUser(connection);
       return connection;
     } catch (Exception e) {
@@ -41,40 +34,10 @@ public class InitializeDatabase {
     }
   }
 
-  /**
-   * insert a second user into the database as a test.
-   * 
-   * @throws SQLException thrown if something goes wrong in inserting the user.
-   * 
-   *         public static void insert() throws SQLException { Connection connection =
-   *         DatabaseDriver.connectOrCreateDataBase(); int userId = initializeFirstUser(connection);
-   *         int accountId = initializeFirstUser(connection);
-   * 
-   *         associateAccount(userId, accountId, connection); connection.close(); }
-   * 
-   *         /** Update stuff in the database to validate update commands worked. DO NOT CALL THIS
-   *         ON YOUR FINAL CODE!
-   * 
-   * @throws SQLException thrown if something goes wrong.
-   * 
-   *         public static void update() throws SQLException { Connection connection =
-   *         DatabaseDriver.connectOrCreateDataBase();
-   * 
-   *         DatabaseUpdater.updateAccountBalance(new BigDecimal("99.92"), 1, connection);
-   *         DatabaseUpdater.updateAccountName("New John", 1, connection);
-   *         DatabaseUpdater.updateAccountType(2, 1, connection);
-   *         DatabaseUpdater.updateAccountTypeInterestRate(new BigDecimal("0.4"), 1, connection);
-   *         DatabaseUpdater.updateAccountTypeName("THIS IS BAD", 1, connection);
-   *         DatabaseUpdater.updateRoleName("THIS TOO IS BAD", 1, connection);
-   *         DatabaseUpdater.updateUserAddress("123 Four Five Street", 1, connection);
-   *         DatabaseUpdater.updateUserAge(102, 1, connection); DatabaseUpdater.updateUserName("Sir
-   *         Bob Marley", 1, connection); DatabaseUpdater.updateUserRole(2, 1, connection);
-   * 
-   *         connection.close(); }
-   */
   private static void initializeDatabase(Connection connection) {
     try {
       DatabaseDriver.initialize(connection);
+      System.out.println("db setup successful");
     } catch (Exception exception) {
       exception.printStackTrace();
     }
@@ -87,6 +50,7 @@ public class InitializeDatabase {
         amenStr = amenities.toString();
         DatabaseInserter.insertAmen(amenStr, connection);
       }
+      System.out.println("amenities setup successful");
     } catch (Exception e) {
       // TODO Improve this block
       e.printStackTrace();
@@ -100,6 +64,7 @@ public class InitializeDatabase {
         homeTypeStr = homeTypes.toString();
         DatabaseInserter.insertHomeType(homeTypeStr, connection);
       }
+      System.out.println("hometype setup successful");
     } catch (Exception e) {
       // TODO improve this block
       e.printStackTrace();
@@ -113,6 +78,7 @@ public class InitializeDatabase {
         occupationStr = occ.toString();
         DatabaseInserter.insertOccupations(occupationStr, connection);
       }
+      System.out.println("occupation setup successful");
     } catch (Exception e) {
       // TODO improve this block
       e.printStackTrace();
@@ -137,18 +103,5 @@ public class InitializeDatabase {
     }
 
   }
-  /*
-   * private static int initializeFirstAccount(Connection connection) { int id = 1; try { return
-   * DatabaseInserter.insertAccount(name, balance, typeId, connection); } catch (Exception e) { //
-   * TODO Improve this e.printStackTrace(); return -1; } }
-   * 
-   * 
-   * private static void associateAccount(int userId, int accountId, Connection connection) { try {
-   * System.out.println(userId + " " + accountId); DatabaseInserter.insertUserAccount(userId,
-   * accountId, connection); } catch (Exception e) { e.printStackTrace(); }
-   * 
-   * }
-   */
-
 
 }

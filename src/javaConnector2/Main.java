@@ -9,11 +9,13 @@ public class Main {
    * initialize method to set up the database.
    */
   public static void main(String[] args) {
-    InitializeDatabase.initialize();
     CommandLine commandLine = new CommandLine();
+    DatabaseDriver.connectOrCreateDataBase();
+    System.out.println("connection successful");
     if (commandLine.startSession() && commandLine.execute()) {
       commandLine.endSession();
     }
+    System.out.println("session ended");
   }
 
 }
