@@ -90,6 +90,20 @@ public class QueriesHelper {
     }
     return result;
   }
+  
+  // date format MUST BE 'YYYY-MM-DD'
+  public static List<List<String>> queryByListingDates(String date) {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    List<List<String>> result = Queries.queryListingsDates(date, connection);
+    try {
+      connection.close();
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    return result;
+  }
+  
   // THIS CODE WAS TAKEN FROM http://rosettacode.org/wiki/Haversine_formula#Java
   // TO CALCULATE latitude and longitudes in a certain distance
   private static final double R = 6372.8; // In kilometers
@@ -103,5 +117,6 @@ public class QueriesHelper {
       double c = 2 * Math.asin(Math.sqrt(a));
       return R * c;
   }
+  
 
 }

@@ -164,6 +164,41 @@ List<List<String>> result = new ArrayList<>();
     return result;
   }
   
+  public static List<List<String>> queryListingsDates(String date, Connection connection) {
+    String sql = "SELECT L.ListingID, U.Full_Name, L.Latitutude, L.Longitude, H1.Type AS 'HOUSE TYPE', RentalPrice"
+               + " FROM Listing L, HomeType H1, Users_Host_Listing UH, Users U, Calendar C, Listing_has_Calendar LC"
+               + " WHERE L.ListingID=LC.Listing_ListingID AND UH.Users_SIN=U.SIN AND L.HomeType_idHomeType=H1.idHomeType"
+               + " AND ? BETWEEN LC.Calendar_BeginDate AND LC.Calendar_EndDate";
+    
+    List<List<String>> result = new ArrayList<>();
+    
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setString(1, date);
+      ResultSet resultSet = preparedStatement.executeQuery();
+      ResultSetMetaData resultMeta = resultSet.getMetaData();
+      List<String> columnName = getColumnNames(resultMeta);
+      result.add(columnName);
+      
+      while (resultSet.next()) {
+        List<String> rowValues = new ArrayList<>();
+        rowValues.add(resultSet.getString(1));
+        rowValues.add(resultSet.getString(2));
+        rowValues.add(resultSet.getString(3));
+        rowValues.add(resultSet.getString(4));
+        rowValues.add(resultSet.getString(5));
+        rowValues.add(resultSet.getString(6));
+        result.add(rowValues);
+      }
+      
+      
+    } catch (SQLException e) {
+      System.out.println("Couldnt query by amenities");
+      e.printStackTrace();
+    }
+    return result;
+  }
+  
   private static List<String> getColumnNames(ResultSetMetaData resultMeta) {
     List<String> columnName = new ArrayList<>();
     
