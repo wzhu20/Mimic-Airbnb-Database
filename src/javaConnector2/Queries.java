@@ -234,7 +234,7 @@ List<List<String>> result = new ArrayList<>();
     return result;
   }
   
-  private static List<String> getColumnNames(ResultSetMetaData resultMeta) {
+  public static List<String> getColumnNames(ResultSetMetaData resultMeta) {
     List<String> columnName = new ArrayList<>();
     
       try {
