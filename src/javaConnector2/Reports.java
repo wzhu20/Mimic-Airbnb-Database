@@ -124,4 +124,136 @@ public class Reports {
     }
     return result;
   }
+  
+  // ?
+  public static List<List<String>> rankHostsNumberofListingsPerCountry(Connection connection) {
+    String sql = "SELECT UH.Users_SIN, A.Country, COUNT(UH.Listing_ListingID) AS 'Number of Listings', RANK () OVER ( ORDER BY COUNT(UH.Listing_ListingID)) Ranking\n" + 
+        " FROM Listing L, Address_has_Listing AL, Address A, Users_host_Listing UH\n" + 
+        " WHERE L.ListingID=AL.Listing_ListingID AND AL.Address_Postal_Code=A.Postal_Code AND UH.Listing_ListingID=L.ListingID\n" + 
+        " GROUP BY UH.Users_SIN, A.Country";
+    
+    List<List<String>> result = new ArrayList<>();
+    
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      ResultSet resultSet = preparedStatement.executeQuery();
+      ResultSetMetaData resultMeta = resultSet.getMetaData();
+      List<String> columnName = Queries.getColumnNames(resultMeta);
+      result.add(columnName);
+      
+      while (resultSet.next()) {
+        List<String> rowValues = new ArrayList<>();
+        rowValues.add(resultSet.getString(1));
+        rowValues.add(resultSet.getString(2));
+        rowValues.add(resultSet.getString(3));
+        rowValues.add(resultSet.getString(4));
+        result.add(rowValues);
+      }
+      
+      
+    } catch (SQLException e) {
+      System.out.println("Couldnt query by host rankings per country");
+      e.printStackTrace();
+    }
+    return result;
+  }
+  
+  // ?
+  public static List<List<String>> rankHostsNumberofListingsPerCity(Connection connection) {
+    String sql = "SELECT UH.Users_SIN, A.City, COUNT(UH.Listing_ListingID) AS 'Number of Listings', RANK () OVER ( ORDER BY COUNT(UH.Listing_ListingID)) Ranking\n" + 
+        " FROM Listing L, Address_has_Listing AL, Address A, Users_host_Listing UH\n" + 
+        " WHERE L.ListingID=AL.Listing_ListingID AND AL.Address_Postal_Code=A.Postal_Code AND UH.Listing_ListingID=L.ListingID\n" + 
+        " GROUP BY UH.Users_SIN, A.City";
+    
+    List<List<String>> result = new ArrayList<>();
+    
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      ResultSet resultSet = preparedStatement.executeQuery();
+      ResultSetMetaData resultMeta = resultSet.getMetaData();
+      List<String> columnName = Queries.getColumnNames(resultMeta);
+      result.add(columnName);
+      
+      while (resultSet.next()) {
+        List<String> rowValues = new ArrayList<>();
+        rowValues.add(resultSet.getString(1));
+        rowValues.add(resultSet.getString(2));
+        rowValues.add(resultSet.getString(3));
+        rowValues.add(resultSet.getString(4));
+        result.add(rowValues);
+      }
+      
+      
+    } catch (SQLException e) {
+      System.out.println("Couldnt query by host rankings per city");
+      e.printStackTrace();
+    }
+    return result;
+  }
+  
+  // ?
+  public static List<List<String>> hostWithMoreThanTenPercentPerCountry(Connection connection) {
+    String sql = "SELECT UH.Users_SIN, A.Country, COUNT(UH.Listing_ListingID) AS 'Number of Hosted Listings', COUNT(L.ListingID) AS 'Total Number of Listing in Country'\n" + 
+        " FROM Listing L, Address_has_Listing AL, Address A, Users_host_Listing UH\n" + 
+        " WHERE L.ListingID=AL.Listing_ListingID AND AL.Address_Postal_Code=A.Postal_Code AND UH.Listing_ListingID=L.ListingID\n" + 
+        " GROUP BY UH.Users_SIN, A.Country\n" + 
+        " HAVING COUNT(UH.Listing_ListingID)  >= 0.10*COUNT(L.ListingID)";
+    
+    List<List<String>> result = new ArrayList<>();
+    
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      ResultSet resultSet = preparedStatement.executeQuery();
+      ResultSetMetaData resultMeta = resultSet.getMetaData();
+      List<String> columnName = Queries.getColumnNames(resultMeta);
+      result.add(columnName);
+      
+      while (resultSet.next()) {
+        List<String> rowValues = new ArrayList<>();
+        rowValues.add(resultSet.getString(1));
+        rowValues.add(resultSet.getString(2));
+        rowValues.add(resultSet.getString(3));
+        result.add(rowValues);
+      }
+      
+      
+    } catch (SQLException e) {
+      System.out.println("Couldnt query by hosts with more than 10% per country");
+      e.printStackTrace();
+    }
+    return result;
+  }
+  
+ //?
+ public static List<List<String>> hostWithMoreThanTenPercentPerCity(Connection connection) {
+   String sql = "SELECT UH.Users_SIN, A.City, COUNT(UH.Listing_ListingID) AS 'Number of Hosted Listings', COUNT(L.ListingID) AS 'Total Number of Listing in Country'\n" + 
+       " FROM Listing L, Address_has_Listing AL, Address A, Users_host_Listing UH\n" + 
+       " WHERE L.ListingID=AL.Listing_ListingID AND AL.Address_Postal_Code=A.Postal_Code AND UH.Listing_ListingID=L.ListingID\n" + 
+       " GROUP BY UH.Users_SIN, A.City\n" + 
+       " HAVING COUNT(UH.Listing_ListingID)  >= 0.10*COUNT(L.ListingID)";
+   
+   List<List<String>> result = new ArrayList<>();
+   
+   try {
+     PreparedStatement preparedStatement = connection.prepareStatement(sql);
+     ResultSet resultSet = preparedStatement.executeQuery();
+     ResultSetMetaData resultMeta = resultSet.getMetaData();
+     List<String> columnName = Queries.getColumnNames(resultMeta);
+     result.add(columnName);
+     
+     while (resultSet.next()) {
+       List<String> rowValues = new ArrayList<>();
+       rowValues.add(resultSet.getString(1));
+       rowValues.add(resultSet.getString(2));
+       rowValues.add(resultSet.getString(3));
+       result.add(rowValues);
+     }
+     
+     
+   } catch (SQLException e) {
+     System.out.println("Couldnt query by hosts with more than 10% per city");
+     e.printStackTrace();
+   }
+   return result;
+ }
 }

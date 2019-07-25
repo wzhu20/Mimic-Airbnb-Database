@@ -47,7 +47,50 @@ public class ReportsHelper {
     try {
       connection.close();
     } catch (SQLException e) {
-      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    return result;
+  }
+  
+  public static List<List<String>> rankHostsByNumberofListingsPerCountry() {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    List<List<String>> result = Reports.rankHostsNumberofListingsPerCountry(connection);
+    try {
+      connection.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return result;
+  }
+  
+  public static List<List<String>> rankHostsByNumberofListingsPerCity() {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    List<List<String>> result = Reports.rankHostsNumberofListingsPerCountry(connection);
+    try {
+      connection.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return result;
+  }
+  
+  public static List<List<String>> hostWithMoreThanTenPercentByCountry() {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    List<List<String>> result = Reports.hostWithMoreThanTenPercentPerCountry(connection);
+    try {
+      connection.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return result;
+  }
+  
+  public static List<List<String>> hostWithMoreThanTenPercentByCity() {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    List<List<String>> result = Reports.hostWithMoreThanTenPercentPerCity(connection);
+    try {
+      connection.close();
+    } catch (SQLException e) {
       e.printStackTrace();
     }
     return result;
