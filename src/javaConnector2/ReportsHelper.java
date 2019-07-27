@@ -95,4 +95,15 @@ public class ReportsHelper {
     }
     return result;
   }
+  
+  public static List<List<String>> rankRentersByNumberOfRentsInDateRange(String date1, String date2) {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    List<List<String>> result = Reports.rankRentersDateRange(connection, date1, date2);
+    try {
+      connection.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return result;
+  }
 }
