@@ -104,6 +104,18 @@ public class QueriesHelper {
     return result;
   }
   
+  public static List<List<String>> queryByRentalPrices(double rentalPrice) {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    List<List<String>> result = Queries.queryRentalPrices(rentalPrice, connection);
+    try {
+      connection.close();
+    } catch (SQLException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+    return result;
+  }
+  
   // THIS CODE WAS TAKEN FROM http://rosettacode.org/wiki/Haversine_formula#Java
   // TO CALCULATE latitude and longitudes in a certain distance
   private static final double R = 6372.8; // In kilometers

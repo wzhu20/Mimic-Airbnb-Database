@@ -7,6 +7,7 @@ import java.sql.Statement;
 import exceptions.DatabaseInsertException;
 import userCommands.User;
 
+
 public class DatabaseSelectHelper extends DatabaseSelector {
 
   public static ResultSet getAllOccupations() throws SQLException {
@@ -15,6 +16,7 @@ public class DatabaseSelectHelper extends DatabaseSelector {
     ResultSet results = statement.executeQuery("SELECT * FROM users_has_Occupation;");
     return results;
   }
+
 
   public static ResultSet getAllHometypes() throws SQLException {
     Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
@@ -59,4 +61,5 @@ public class DatabaseSelectHelper extends DatabaseSelector {
     }
     return null;
   }
+
 }
