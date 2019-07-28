@@ -14,8 +14,8 @@ public class RunQueries extends UserOption {
 
   protected RunQueries(Scanner sc) {
     super(sc);
+    // TODO Auto-generated constructor stub
   }
-
 
   @Override
   void execute() throws NumberFormatException, SQLException, DatabaseInsertException {
@@ -172,5 +172,6 @@ public class RunQueries extends UserOption {
     System.out.println("6. search by listingDates");
     System.out.println("7. search by rental prices upper limit");
   }
+
 
 }
