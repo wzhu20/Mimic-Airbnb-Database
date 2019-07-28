@@ -18,4 +18,18 @@ public class DatabaseUpdater {
     }
     return false;
   }
+
+  protected static boolean deleteListing(int listingId, Connection connection) {
+    String sql = "DELETE FROM listing WHERE WHERE ListingId = ?;";
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setInt(1, listingId);
+      preparedStatement.executeUpdate();
+      return true;
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return false;
+  }
 }

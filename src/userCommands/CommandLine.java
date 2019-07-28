@@ -61,7 +61,7 @@ public class CommandLine {
               String sin = sc.nextLine();
               User user = DatabaseSelectHelper.getUserDetails(Integer.parseInt(sin));
               option = new SelectUserOption(sc, user);
-              mainMenu();
+              break;
             default:
               option = new NullOption(sc);
               break;

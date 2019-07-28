@@ -200,4 +200,114 @@ public class DatabaseInserter {
     }
     return -1;
   }
+
+  protected static int insertListing(float lat, float longit, int hometype, Connection connection) {
+    String sql = "INSERT INTO Listing (Latitutude, Longitude, HomeType_idHomeType) VALUES(?,?,?);";
+    try {
+      PreparedStatement preparedStatement =
+          connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+      preparedStatement.setFloat(1, lat);
+      preparedStatement.setFloat(2, longit);
+      preparedStatement.setInt(3, hometype);
+      preparedStatement.executeUpdate();
+      ResultSet id = preparedStatement.getGeneratedKeys();
+      if (id.first()) {
+        int outputId = id.getInt(1);
+        connection.close();
+        return outputId;
+
+      } else {
+        connection.close();
+        return -1;
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return -1;
+  }
+
+
+  protected static int insertCalendar(String begin, String end, Connection connection) {
+    String sql = "INSERT INTO Calendar (BeginDate, EndDate) VALUES(?,?);";
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setDate(1, java.sql.Date.valueOf(begin));
+      preparedStatement.setDate(2, java.sql.Date.valueOf(end));
+      int id = preparedStatement.executeUpdate();
+      connection.close();
+      return id;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return -1;
+  }
+
+  protected static int insertListingCalendar(int listingId, String begin, String end, double rental,
+      Connection connection) {
+    String sql = "INSERT INTO Listing_has_Calendar (Listing_ListingID, Calendar_BeginDate, "
+        + "Calendar_EndDate, RentalPrice) VALUES(?,?,?,?);";
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setInt(1, listingId);
+      preparedStatement.setDate(2, java.sql.Date.valueOf(begin));
+      preparedStatement.setDate(3, java.sql.Date.valueOf(end));
+      preparedStatement.setDouble(4, rental);
+      int id = preparedStatement.executeUpdate();
+      connection.close();
+      return id;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return -1;
+  }
+
+  protected static int insertListingAmen(int listingId, int amen, Connection connection) {
+    String sql =
+        "INSERT INTO Listing_has_Amenities (Listing_ListingID, Amenities_idAmenities) VALUES(?,?);";
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setInt(1, listingId);
+      preparedStatement.setInt(2, amen);
+      int id = preparedStatement.executeUpdate();
+      connection.close();
+      return id;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return -1;
+  }
+
+  protected static int insertHostListing(int sin, int listingId, Connection connection) {
+    String sql = "INSERT INTO Users_Host_Listing (Users_SIN, Listing_ListingID) VALUES(?,?);";
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setInt(1, sin);
+      preparedStatement.setInt(2, listingId);
+      int id = preparedStatement.executeUpdate();
+      connection.close();
+      return id;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return -1;
+  }
+
+  protected static int insertRentListing(int sin, int listingId, int credit,
+      Connection connection) {
+    String sql =
+        "INSERT INTO Users_rent_Listing (Users_SIN, Listing_ListingID, Credit_Card) VALUES(?,?,?);";
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setInt(1, sin);
+      preparedStatement.setInt(2, listingId);
+      preparedStatement.setInt(3, credit);
+      int id = preparedStatement.executeUpdate();
+      connection.close();
+      return id;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return -1;
+  }
+
 }

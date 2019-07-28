@@ -17,6 +17,12 @@ public class DatabaseSelectHelper extends DatabaseSelector {
     return results;
   }
 
+  public static ResultSet getAllHostList(int sin) throws SQLException {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    ResultSet results = DatabaseSelector.getHostListing(sin, connection);
+    return results;
+  }
+
 
   public static ResultSet getAllHometypes() throws SQLException {
     Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
@@ -31,6 +37,7 @@ public class DatabaseSelectHelper extends DatabaseSelector {
     ResultSet results = statement.executeQuery("SELECT * FROM Amenities;");
     return results;
   }
+
 
   /**
    * Gets the details of the user based on their id.
@@ -49,7 +56,7 @@ public class DatabaseSelectHelper extends DatabaseSelector {
       while (results.next()) {
         int sin = results.getInt("SIN");
         String name = results.getString("FULL_NAME");
-        String dob = results.getString("DATE OF BIRTH");
+        String dob = results.getString("Date_of_Birth");
         int hostId = results.getInt("Host_Profile_idHost_Profile");
         int rentId = results.getInt("Renter_Profile_idRenter_Profile");
         int occId = results.getInt("Occupation");

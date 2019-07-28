@@ -26,8 +26,8 @@ public class SelectUserOption extends UserOption {
         try {
           choice = Integer.parseInt(input);
           switch (choice) { // Activate the desired functionality
-
             case 0:
+              option = new Blank(sc, "Back option");
               break;
             case 1:
               option = new CreateNewUser(sc);
@@ -37,18 +37,20 @@ public class SelectUserOption extends UserOption {
               String sin = sc.nextLine();
               this.user = DatabaseSelectHelper.getUserDetails(Integer.parseInt(sin));
               option = new SelectUserOption(sc, user);
-              userMenu();
+              break;
             case 3:
-
               break;
             case 4:
               break;
             case 5:
-              option = new CreateListing(sc);
+              option = new CreateListing(sc, user.sin);
               break;
             case 6:
               break;
             case 7:
+              option = new DeleteListing(sc, this.user.sin);
+              break;
+            case 8:
               option = new DeleteUser(sc, this.user.sin);
               break;
             default:
@@ -77,7 +79,8 @@ public class SelectUserOption extends UserOption {
     System.out.println("4. Cancel renting of a listing");
     System.out.println("5. Create a Listing");
     System.out.println("6. update a Listing");
-    System.out.println("7. delete this user");
+    System.out.println("7. delete a Listing");
+    System.out.println("8. delete this user");
   }
 
 }

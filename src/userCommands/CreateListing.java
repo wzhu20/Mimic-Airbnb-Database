@@ -5,27 +5,44 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import exceptions.DatabaseInsertException;
+import javaConnector2.Checker;
 import javaConnector2.DatabaseInsertHelper;
 import javaConnector2.DatabaseSelectHelper;
 
 public class CreateListing extends UserOption {
+  private int sin;
 
-  protected CreateListing(Scanner sc) {
+  protected CreateListing(Scanner sc, int sin) {
     super(sc);
+    this.sin = sin;
   }
 
   @Override
   void execute() throws NumberFormatException, SQLException, DatabaseInsertException {
+
     System.out.println("Address (postal code)");
     String postal = sc.nextLine();
     System.out.println("Latitutude:");
     String lat = sc.nextLine();
     System.out.println("Longitude :");
     String longit = sc.nextLine();
+
+
     System.out.println("Begin date (YYYY-MM-DD):");
     String begin = sc.nextLine();
+    while (!Checker.checkValidDate(begin)) {
+      System.out.println("invalid date, try again (YYYY-MM-DD)");
+      begin = sc.nextLine();
+    }
+
     System.out.println("End date (YYYY-MM-DD):");
     String end = sc.nextLine();
+
+    while (!Checker.checkValidDate(end)) {
+      System.out.println("invalid date, try again (YYYY-MM-DD)");
+      begin = sc.nextLine();
+    }
+
     System.out.println("Home Type (press 0 to see all, -1 to add a new one):");
     String hometype = sc.nextLine();
     try {
@@ -49,13 +66,18 @@ public class CreateListing extends UserOption {
     }
 
     System.out.println("Amentities of home (-1 to add a brand new one, -2 to finish adding):");
+    ResultSet data = DatabaseSelectHelper.getAllAmen();
+    while (data.next()) {
+      System.out.println(data.getInt("idAmenities") + " : " + data.getString("Item"));
+    }
+    data.close();
     String amen = sc.nextLine();
     ArrayList<Integer> amenList = new ArrayList<Integer>();
     try {
       while (Integer.parseInt(amen) != -2) {
-        ResultSet data = DatabaseSelectHelper.getAllAmen();
+        data = DatabaseSelectHelper.getAllAmen();
         while (data.next()) {
-          System.out.println(data.getInt("idHomeType") + " : " + data.getString("type"));
+          System.out.println(data.getInt("idAmenities") + " : " + data.getString("Item"));
         }
         data.close();
         if (Integer.parseInt(amen) == -1) {
@@ -70,7 +92,16 @@ public class CreateListing extends UserOption {
       e.printStackTrace();
       throw e;
     }
+    System.out.println("Rental Price:");
+    String rental = sc.nextLine();
 
+    DatabaseInsertHelper.insertCalendarDate(begin, end);
+    int listingId = DatabaseInsertHelper.insertListing(Float.valueOf(lat), Float.valueOf(longit),
+        Integer.valueOf(hometype));
+    DatabaseInsertHelper.insertHostListing(this.sin, listingId);
+    DatabaseInsertHelper.insertListingCalendar(listingId, begin, end, Double.valueOf(rental));
+    DatabaseInsertHelper.insertListingAddress(listingId, postal);
+    System.out.println("listing creation finished, Listing ID :" + listingId);
   }
 
 }
