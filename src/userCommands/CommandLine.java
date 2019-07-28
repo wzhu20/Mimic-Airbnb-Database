@@ -66,7 +66,7 @@ public class CommandLine {
               option = new RunQueries(sc);
               break;
             case 4:
-              option = new RunReport(sc);
+              option = new RunReports(sc);
               break;
             default:
               option = new NullOption(sc);
@@ -95,5 +95,6 @@ public class CommandLine {
     System.out.println("1. create a new user");
     System.out.println("2. select as user");
     System.out.println("3. run queries");
+    System.out.println("4. run reports");
   }
 }
