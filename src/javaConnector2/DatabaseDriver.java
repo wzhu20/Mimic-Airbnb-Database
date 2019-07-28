@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 import exceptions.ConnectionFailedException;
 
@@ -41,12 +42,21 @@ public class DatabaseDriver {
     try {
       Class.forName("com.mysql.cj.jdbc.Driver");
       connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1/" + dbName, user, pass);
+    } catch (Exception e) {
+      System.out.println("db not setup! Try to inialize db");
+    }
 
+    try {
+      Class.forName("com.mysql.cj.jdbc.Driver");
+      connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1/", user, pass);
+      PreparedStatement statement = connection
+          .prepareStatement("CREATE SCHEMA IF NOT EXISTS `airbnb` DEFAULT CHARACTER SET utf8");
+      statement.executeUpdate();
+      connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1/" + dbName, user, pass);
     } catch (Exception e) {
       System.out.println("Something went wrong with your connection! see below details: ");
       e.printStackTrace();
     }
-    System.out.println("connection successful");
     return connection;
   }
 

@@ -1,6 +1,7 @@
 package userCommands;
 
 import java.util.Scanner;
+import javaConnector2.DatabaseSelectHelper;
 
 public class CommandLine {
 
@@ -55,6 +56,18 @@ public class CommandLine {
             case -11:
               option = new Initialize(sc);
               break;
+            case 2:
+              System.out.println("SIN: ");
+              String sin = sc.nextLine();
+              User user = DatabaseSelectHelper.getUserDetails(Integer.parseInt(sin));
+              option = new SelectUserOption(sc, user);
+              break;
+            case 3:
+              option = new RunQueries(sc);
+              break;
+            case 4:
+              option = new RunReport(sc);
+              break;
             default:
               option = new NullOption(sc);
               break;
@@ -81,15 +94,6 @@ public class CommandLine {
     System.out.println("0. Exit.");
     System.out.println("1. create a new user");
     System.out.println("2. select as user");
-  }
-
-
-  @SuppressWarnings("unused")
-  private static void userMenu() {
-    System.out.println("=========MENU========");
-    System.out.println("-11. (initialize database)");
-    System.out.println("0. Exit.");
-    System.out.println("1. create a new user");
-    System.out.println("2. select as user");
+    System.out.println("3. run queries");
   }
 }

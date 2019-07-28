@@ -4,15 +4,17 @@ import java.sql.SQLException;
 import java.util.Scanner;
 import exceptions.DatabaseInsertException;
 
-public class NullOption extends UserOption {
+public class RunReport extends UserOption {
 
-  protected NullOption(Scanner sc) {
+  protected RunReport(Scanner sc) {
     super(sc);
+    // TODO Auto-generated constructor stub
   }
 
   @Override
   void execute() throws NumberFormatException, SQLException, DatabaseInsertException {
-    System.out.println("null option");
+    // TODO Auto-generated method stub
+
   }
 
 }

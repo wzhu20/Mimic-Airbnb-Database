@@ -20,7 +20,7 @@ public class InitializeDatabase {
       initializeHomeTypes(connection);
       initializeAmenTable(connection);
       initializeOccupations(connection);
-      initializeFirstUser(connection);
+      // initializeFirstUser(connection);
       return connection;
     } catch (Exception e) {
       e.printStackTrace();
@@ -89,19 +89,13 @@ public class InitializeDatabase {
    * Add the first user to the database.
    * 
    * @param connection the connection to the database.
+   * 
+   *        private static int initializeFirstUser(Connection connection) { String name = "John
+   *        Smith"; String dob = "Jan 1"; String sin = "100"; try { return
+   *        DatabaseInserter.insertNewUser(sin, dob, name, connection); } catch (Exception e) { //
+   *        TODO improve this. e.printStackTrace(); return -1; }
+   * 
+   *        }
    */
-  private static int initializeFirstUser(Connection connection) {
-    String name = "John Smith";
-    String dob = "Jan 1";
-    String sin = "100";
-    try {
-      return DatabaseInserter.insertNewUser(sin, dob, name, connection);
-    } catch (Exception e) {
-      // TODO improve this.
-      e.printStackTrace();
-      return -1;
-    }
-
-  }
 
 }

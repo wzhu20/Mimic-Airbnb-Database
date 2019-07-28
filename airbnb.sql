@@ -132,7 +132,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `airbnb`.`Users_rent_Listing` (
   `Users_SIN` INT NOT NULL,
   `Listing_ListingID` INT NOT NULL,
-  `Credit_Card` VARCHAR(45) NOT NULL,
+  `Credit_Card` INT NOT NULL,
   PRIMARY KEY (`Users_SIN`, `Listing_ListingID`),
   CONSTRAINT `fk_Users_has_Listing_Users2`
     FOREIGN KEY (`Users_SIN`)
