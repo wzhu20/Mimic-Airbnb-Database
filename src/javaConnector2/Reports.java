@@ -256,4 +256,40 @@ public class Reports {
    }
    return result;
  }
+ 
+//?
+public static List<List<String>> rankRentersDateRange(Connection connection, String date1, String date2) {
+  String sql = " SELECT UR.Users_SIN,  COUNT(UR.Users_SIN) AS 'Number of Bookings', RANK () OVER ( ORDER BY COUNT(UR.Users_SIN)) Ranking\n" + 
+      " FROM Listing L, Users_rent_Listing UR, Listing_has_Calendar LC\n" + 
+      " WHERE L.ListingID=UR.Listing_ListingID AND LC.Listing_ListingID=L.ListingID AND (LC.Calendar_BeginDate BETWEEN ? AND ?) AND (LC.Calendar_EndDate BETWEEN ? AND ?)\n" + 
+      " GROUP BY UR.Users_SIN";
+  
+  List<List<String>> result = new ArrayList<>();
+  
+  try {
+    PreparedStatement preparedStatement = connection.prepareStatement(sql);
+    preparedStatement.setString(1, date1);
+    preparedStatement.setString(2, date2);
+    preparedStatement.setString(3, date1);
+    preparedStatement.setString(4, date2);
+    ResultSet resultSet = preparedStatement.executeQuery();
+    ResultSetMetaData resultMeta = resultSet.getMetaData();
+    List<String> columnName = Queries.getColumnNames(resultMeta);
+    result.add(columnName);
+    
+    while (resultSet.next()) {
+      List<String> rowValues = new ArrayList<>();
+      rowValues.add(resultSet.getString(1));
+      rowValues.add(resultSet.getString(2));
+      rowValues.add(resultSet.getString(3));
+      result.add(rowValues);
+    }
+    
+    
+  } catch (SQLException e) {
+    System.out.println("Couldnt query by host rankings per city");
+    e.printStackTrace();
+  }
+  return result;
+}
 }
