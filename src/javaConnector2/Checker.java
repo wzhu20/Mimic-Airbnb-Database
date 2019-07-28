@@ -33,6 +33,14 @@ public class Checker {
     return output;
   }
 
+  public static boolean checkValidLatLong(Float lat) {
+    boolean output = true;
+    if (lat <= 0) {
+      output = false;
+    }
+    return output;
+  }
+
   public static boolean checkValidSin(int sin) {
     boolean output = true;
     if (sin <= 100000 || sin > 999999) {
