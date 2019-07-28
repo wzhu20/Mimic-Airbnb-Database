@@ -106,4 +106,48 @@ public class ReportsHelper {
     }
     return result;
   }
+  
+  public static List<List<String>> rankRentersByNumberOfRentsInDateRangePerCity() {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    List<List<String>> result = Reports.rankRentersDateRangePerCity(connection);
+    try {
+      connection.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return result;
+  }
+  
+  public static List<List<String>> RentersWithMostCancellaionsInAYear() {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    List<List<String>> result = Reports.renterWithMostCancellations(connection);
+    try {
+      connection.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return result;
+  }
+  
+  public static List<List<String>> HostersWithMostCancellaionsInAYear() {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    List<List<String>> result = Reports.hosterWithMostCancellations(connection);
+    try {
+      connection.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return result;
+  }
+  
+  public static List<List<String>> rankRentersDateRangePerYearWithMoreThanTwoBookings() {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    List<List<String>> result = Reports.rankRentersDateRangePerYearWithMoreThanTwoBookings(connection);
+    try {
+      connection.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return result;
+  }
 }

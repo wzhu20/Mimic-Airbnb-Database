@@ -48,6 +48,7 @@ public class Queries {
         rowValues.add(resultSet.getString(5));
         result.add(rowValues);
       }
+      resultSet.close();
     } catch (SQLException e) {
       System.out.println("Couldnt query by " + postalCode);
       e.printStackTrace();
@@ -78,7 +79,7 @@ public class Queries {
         rowValues.add(resultSet.getString(5));
         result.add(rowValues);
       }
-      
+      resultSet.close();
       
     } catch (SQLException e) {
       System.out.println("Couldnt query listings");
@@ -112,7 +113,7 @@ List<List<String>> result = new ArrayList<>();
         rowValues.add(resultSet.getString(6));
         result.add(rowValues);
       }
-      
+      resultSet.close();
       
     } catch (SQLException e) {
       System.out.println("Couldnt query postal codes");
@@ -155,7 +156,7 @@ List<List<String>> result = new ArrayList<>();
         rowValues.add(resultSet.getString(5));
         result.add(rowValues);
       }
-      
+      resultSet.close();
       
     } catch (SQLException e) {
       System.out.println("Couldnt query by amenities");
@@ -190,7 +191,7 @@ List<List<String>> result = new ArrayList<>();
         rowValues.add(resultSet.getString(6));
         result.add(rowValues);
       }
-      
+      resultSet.close();
       
     } catch (SQLException e) {
       System.out.println("Couldnt query by amenities");
@@ -225,7 +226,7 @@ List<List<String>> result = new ArrayList<>();
         rowValues.add(resultSet.getString(6));
         result.add(rowValues);
       }
-      
+      resultSet.close();
       
     } catch (SQLException e) {
       System.out.println("Couldnt query by rental prices");

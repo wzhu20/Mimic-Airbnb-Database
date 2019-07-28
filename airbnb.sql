@@ -390,3 +390,25 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Host Rating` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `airbnb`.`User_Cancel_Rent` (
+  `User_rent_Listing_User_SIN` INT NOT NULL,
+  `User_rent_Listing_Listing_ListingID` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`User_rent_Listing_User_SIN`, `User_rent_Listing_Listing_ListingID`),
+  CONSTRAINT `fk_User_Cancel_Rent_User_rent_Listing1`
+    FOREIGN KEY (`User_rent_Listing_User_SIN` , `User_rent_Listing_Listing_ListingID`)
+    REFERENCES `mydb`.`User_rent_Listing` (`User_SIN` , `Listing_ListingID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `airbnb`.`User_Cancel_Host` (
+  `User_Host_Listing_User_SIN` INT NOT NULL,
+  `User_Host_Listing_Listing_ListingID` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`User_Host_Listing_User_SIN`, `User_Host_Listing_Listing_ListingID`),
+  CONSTRAINT `fk_User_Cancel_Host_User_Host_Listing1`
+    FOREIGN KEY (`User_Host_Listing_User_SIN` , `User_Host_Listing_Listing_ListingID`)
+    REFERENCES `mydb`.`User_Host_Listing` (`User_SIN` , `Listing_ListingID`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
