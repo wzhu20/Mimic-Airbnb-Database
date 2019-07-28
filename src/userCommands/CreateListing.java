@@ -95,12 +95,17 @@ public class CreateListing extends UserOption {
     System.out.println("Rental Price:");
     String rental = sc.nextLine();
 
+
+
     DatabaseInsertHelper.insertCalendarDate(begin, end);
     int listingId = DatabaseInsertHelper.insertListing(Float.valueOf(lat), Float.valueOf(longit),
         Integer.valueOf(hometype));
     DatabaseInsertHelper.insertHostListing(this.sin, listingId);
     DatabaseInsertHelper.insertListingCalendar(listingId, begin, end, Double.valueOf(rental));
     DatabaseInsertHelper.insertListingAddress(listingId, postal);
+    for (int i : amenList) {
+      DatabaseInsertHelper.insertListingAmen(listingId, i);
+    }
     System.out.println("listing creation finished, Listing ID :" + listingId);
   }
 
