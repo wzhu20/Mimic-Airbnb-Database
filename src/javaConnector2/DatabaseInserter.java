@@ -23,11 +23,9 @@ public class DatabaseInserter {
         ResultSet uniqueKey = preparedStatement.getGeneratedKeys();
         if (uniqueKey.next()) {
           int outputkey = uniqueKey.getInt(1);
-          connection.close();
           return outputkey;
         }
       }
-      connection.close();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -46,11 +44,9 @@ public class DatabaseInserter {
         ResultSet uniqueKey = preparedStatement.getGeneratedKeys();
         if (uniqueKey.next()) {
           int outputkey = uniqueKey.getInt(1);
-          connection.close();
           return outputkey;
         }
       }
-      connection.close();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -69,7 +65,6 @@ public class DatabaseInserter {
         ResultSet uniqueKey = preparedStatement.getGeneratedKeys();
         if (uniqueKey.next()) {
           int outputkey = uniqueKey.getInt(1);
-          connection.close();
           return outputkey;
         }
       }
@@ -89,10 +84,8 @@ public class DatabaseInserter {
       ResultSet id = preparedStatement.getGeneratedKeys();
       if (id.next()) {
         int outputId = id.getInt(1);
-        connection.close();
         return outputId;
       } else {
-        connection.close();
         return -1;
       }
 
@@ -111,11 +104,9 @@ public class DatabaseInserter {
       ResultSet id = preparedStatement.getGeneratedKeys();
       if (id.first()) {
         int outputId = id.getInt(1);
-        connection.close();
         return outputId;
 
       } else {
-        connection.close();
         return -1;
       }
     } catch (Exception e) {
@@ -132,7 +123,6 @@ public class DatabaseInserter {
       preparedStatement.setString(1, sin);
       preparedStatement.setString(2, postal);
       int id = preparedStatement.executeUpdate();
-      connection.close();
       return id;
     } catch (Exception e) {
       e.printStackTrace();
@@ -150,7 +140,6 @@ public class DatabaseInserter {
       preparedStatement.setString(2, city);
       preparedStatement.setString(3, country);
       int id = preparedStatement.executeUpdate();
-      connection.close();
       return id;
     } catch (Exception e) {
       e.printStackTrace();
@@ -166,7 +155,6 @@ public class DatabaseInserter {
       preparedStatement.setString(1, postal);
       preparedStatement.setInt(2, listingId);
       int id = preparedStatement.executeUpdate();
-      connection.close();
       return id;
     } catch (Exception e) {
       e.printStackTrace();
@@ -193,7 +181,6 @@ public class DatabaseInserter {
         preparedStatement.setInt(5, rentId);
       preparedStatement.setInt(6, occupation);
       int id = preparedStatement.executeUpdate();
-      connection.close();
       return id;
     } catch (Exception e) {
       e.printStackTrace();
@@ -213,11 +200,9 @@ public class DatabaseInserter {
       ResultSet id = preparedStatement.getGeneratedKeys();
       if (id.first()) {
         int outputId = id.getInt(1);
-        connection.close();
         return outputId;
 
       } else {
-        connection.close();
         return -1;
       }
     } catch (Exception e) {
@@ -234,7 +219,6 @@ public class DatabaseInserter {
       preparedStatement.setDate(1, java.sql.Date.valueOf(begin));
       preparedStatement.setDate(2, java.sql.Date.valueOf(end));
       int id = preparedStatement.executeUpdate();
-      connection.close();
       return id;
     } catch (Exception e) {
       e.printStackTrace();
@@ -253,7 +237,6 @@ public class DatabaseInserter {
       preparedStatement.setDate(3, java.sql.Date.valueOf(end));
       preparedStatement.setDouble(4, rental);
       int id = preparedStatement.executeUpdate();
-      connection.close();
       return id;
     } catch (Exception e) {
       e.printStackTrace();
@@ -269,7 +252,6 @@ public class DatabaseInserter {
       preparedStatement.setInt(1, listingId);
       preparedStatement.setInt(2, amen);
       int id = preparedStatement.executeUpdate();
-      connection.close();
       return id;
     } catch (Exception e) {
       e.printStackTrace();
@@ -284,7 +266,6 @@ public class DatabaseInserter {
       preparedStatement.setInt(1, sin);
       preparedStatement.setInt(2, listingId);
       int id = preparedStatement.executeUpdate();
-      connection.close();
       return id;
     } catch (Exception e) {
       e.printStackTrace();
@@ -302,7 +283,6 @@ public class DatabaseInserter {
       preparedStatement.setInt(2, listingId);
       preparedStatement.setInt(3, credit);
       int id = preparedStatement.executeUpdate();
-      connection.close();
       return id;
     } catch (Exception e) {
       e.printStackTrace();
