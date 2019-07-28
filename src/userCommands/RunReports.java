@@ -90,7 +90,7 @@ public class RunReports extends UserOption {
   private void printOutput(List<List<String>> output) {
     for (List<String> i : output) {
       for (String j : i) {
-        System.out.print(j + " ");
+        System.out.print(j + "\t");
       }
       System.out.println("");
     }

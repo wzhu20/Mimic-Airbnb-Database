@@ -61,8 +61,8 @@ public class RunQueries extends UserOption {
                 lat = sc.nextLine();
                 System.out.println("longitude: ");
                 longit = sc.nextLine();
-              } while (Checker.checkValidLatLong(Float.valueOf(lat))
-                  && Checker.checkValidLatLong(Float.valueOf(longit)));
+              } while (!(Checker.checkValidLatLong(Float.valueOf(lat))
+                  && Checker.checkValidLatLong(Float.valueOf(longit))));
               output = QueriesHelper.queryByLocations(Float.valueOf(lat), Float.valueOf(longit));
               printOutput(output);
               break;
@@ -75,9 +75,9 @@ public class RunQueries extends UserOption {
                 longit = sc.nextLine();
                 System.out.println("distance: ");
                 distance = sc.nextLine();
-              } while (Checker.checkValidLatLong(Float.valueOf(lat))
+              } while (!(Checker.checkValidLatLong(Float.valueOf(lat))
                   && Checker.checkValidLatLong(Float.valueOf(longit))
-                  && Checker.checkValidLatLong(Float.valueOf(distance)));
+                  && Checker.checkValidLatLong(Float.valueOf(distance))));
               output = QueriesHelper.queryByLocations(Float.valueOf(lat), Float.valueOf(longit),
                   Float.valueOf(distance));
               printOutput(output);
@@ -116,7 +116,7 @@ public class RunQueries extends UserOption {
               do {
                 System.out.println("date (YYYY-MM-DD): ");
                 date = sc.nextLine();
-              } while (Checker.checkValidDate(date));
+              } while (!Checker.checkValidDate(date));
 
               output = QueriesHelper.queryByListingDates(date);
               printOutput(output);
@@ -125,7 +125,7 @@ public class RunQueries extends UserOption {
               do {
                 System.out.println("Rental Price: ");
                 rental = sc.nextLine();
-              } while (Checker.checkValidRentPrice(Double.valueOf(rental)));
+              } while (!Checker.checkValidRentPrice(Double.valueOf(rental)));
               output = QueriesHelper.queryByRentalPrices(Double.valueOf(rental));
               printOutput(output);
               break;
@@ -153,7 +153,7 @@ public class RunQueries extends UserOption {
   private void printOutput(List<List<String>> output) {
     for (List<String> i : output) {
       for (String j : i) {
-        System.out.print(j + " ");
+        System.out.print(j + "\t");
       }
       System.out.println("");
     }
