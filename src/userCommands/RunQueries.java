@@ -84,7 +84,7 @@ public class RunQueries extends UserOption {
               break;
 
             case 5:
-              System.out.println("Amentities of home (-1 to finish adding):");
+              System.out.println("Amentities of home (type - to finish adding):");
               ResultSet data = DatabaseSelectHelper.getAllAmen();
               while (data.next()) {
                 System.out.println(data.getInt("idAmenities") + " : " + data.getString("Item"));
@@ -94,7 +94,7 @@ public class RunQueries extends UserOption {
               List<String> amenList = new ArrayList<String>();
               List<String> totalAmenList = new ArrayList<String>();
 
-              while (amen != "-1".trim()) {
+              while (!amen.equals("-")) {
                 data = DatabaseSelectHelper.getAllAmen();
                 while (data.next()) {
                   System.out.println(data.getInt("idAmenities") + " : " + data.getString("Item"));
@@ -103,13 +103,15 @@ public class RunQueries extends UserOption {
                 data.close();
                 if (totalAmenList.contains(amen)) {
                   amenList.add(amen);
+                } else if (amen.equals("-")) {
+                  System.out.println("finished");
                 } else {
                   System.out.println("invalid amenity, try again");
                 }
 
                 amen = sc.nextLine();
               }
-
+              output = QueriesHelper.queryByAmenities(amenList);
               printOutput(output);
               break;
             case 6:

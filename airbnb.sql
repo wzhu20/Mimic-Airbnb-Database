@@ -133,6 +133,8 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Users_rent_Listing` (
   `Users_SIN` INT NOT NULL,
   `Listing_ListingID` INT NOT NULL,
   `Credit_Card` INT NOT NULL,
+  `Calendar_BeginDate` DATE NOT NULL,
+  `Calendar_EndDate` DATE NOT NULL,
   PRIMARY KEY (`Users_SIN`, `Listing_ListingID`),
   CONSTRAINT `fk_Users_has_Listing_Users2`
     FOREIGN KEY (`Users_SIN`)
@@ -143,7 +145,12 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Users_rent_Listing` (
     FOREIGN KEY (`Listing_ListingID`)
     REFERENCES `airbnb`.`Listing` (`ListingID`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
+    ON UPDATE CASCADE,
+  CONSTRAINT `fk_Users_rent_Listing_Calendar1`
+    FOREIGN KEY (`Calendar_BeginDate` , `Calendar_EndDate`)
+    REFERENCES `airbnb`.`Calendar` (`BeginDate` , `EndDate`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `airbnb`.`Address` (
@@ -391,24 +398,24 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Host Rating` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `airbnb`.`User_Cancel_Rent` (
-  `User_rent_Listing_User_SIN` INT NOT NULL,
-  `User_rent_Listing_Listing_ListingID` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`User_rent_Listing_User_SIN`, `User_rent_Listing_Listing_ListingID`),
-  CONSTRAINT `fk_User_Cancel_Rent_User_rent_Listing1`
-    FOREIGN KEY (`User_rent_Listing_User_SIN` , `User_rent_Listing_Listing_ListingID`)
-    REFERENCES `mydb`.`User_rent_Listing` (`User_SIN` , `Listing_ListingID`)
+CREATE TABLE IF NOT EXISTS `airbnb`.`users_Cancel_Rent` (
+  `users_rent_Listing_users_SIN` INT NOT NULL,
+  `users_rent_Listing_Listing_ListingID` INT NOT NULL,
+  PRIMARY KEY (`users_rent_Listing_users_SIN`, `users_rent_Listing_Listing_ListingID`),
+  CONSTRAINT `fk_users_Cancel_Rent_users_rent_Listing1`
+    FOREIGN KEY (`users_rent_Listing_users_SIN` , `users_rent_Listing_Listing_ListingID`)
+    REFERENCES `airbnb`.`Users_Host_Listing` (`users_SIN` , `Listing_ListingID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `airbnb`.`User_Cancel_Host` (
-  `User_Host_Listing_User_SIN` INT NOT NULL,
-  `User_Host_Listing_Listing_ListingID` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`User_Host_Listing_User_SIN`, `User_Host_Listing_Listing_ListingID`),
-  CONSTRAINT `fk_User_Cancel_Host_User_Host_Listing1`
-    FOREIGN KEY (`User_Host_Listing_User_SIN` , `User_Host_Listing_Listing_ListingID`)
-    REFERENCES `mydb`.`User_Host_Listing` (`User_SIN` , `Listing_ListingID`)
+CREATE TABLE IF NOT EXISTS `airbnb`.`users_Cancel_Host` (
+  `users_Host_Listing_users_SIN` INT NOT NULL,
+  `users_Host_Listing_Listing_ListingID` INT NOT NULL,
+  PRIMARY KEY (`users_Host_Listing_users_SIN`, `users_Host_Listing_Listing_ListingID`),
+  CONSTRAINT `fk_users_Cancel_Host_users_Host_Listing1`
+    FOREIGN KEY (`users_Host_Listing_users_SIN` , `users_Host_Listing_Listing_ListingID`)
+    REFERENCES `airbnb`.`users_Host_Listing` (`users_SIN` , `Listing_ListingID`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

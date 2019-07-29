@@ -50,14 +50,14 @@ public class CommandLine {
         try {
           choice = Integer.parseInt(input);
           switch (choice) { // Activate the desired functionality
-            case 1:
-              option = new CreateNewUser(sc);
-              break;
             case -11:
               option = new Initialize(sc);
               break;
             case -12:
               option = new Populate(sc);
+              break;
+            case 1:
+              option = new CreateNewUser(sc);
               break;
             case 2:
               System.out.println("SIN: ");
