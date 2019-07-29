@@ -29,8 +29,9 @@ public class DeleteListing extends UserOption {
     String listing = sc.nextLine();
 
     if (Checker.checkHostHasListing(sin, Integer.parseInt(listing))) {
-      DatabaseUpdateHelper.deleteListing(Integer.parseInt(listing), this.sin);
       DatabaseInsertHelper.insertCancelHost(sin, Integer.parseInt(listing));
+      DatabaseUpdateHelper.deleteListing(Integer.parseInt(listing), this.sin);
+      System.out.println("operation completed");
     } else {
       System.out.println("operation failed");
     }

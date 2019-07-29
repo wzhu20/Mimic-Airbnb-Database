@@ -62,6 +62,60 @@ public class DatabaseSelectHelper extends DatabaseSelector {
     return results;
   }
 
+  public static ResultSet getHostasRenter(int sin) throws SQLException {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    ResultSet results = DatabaseSelector.getHostasRenter(sin, connection);
+    return results;
+  }
+
+  public static ResultSet getRenterasHost(int sin) throws SQLException {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    ResultSet results = DatabaseSelector.getRenterasHost(sin, connection);
+    return results;
+  }
+
+  public static int getRenterProfile(int sin) throws SQLException {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    ResultSet results = DatabaseSelector.getRenterasHost(sin, connection);
+    int id = results.getInt("Renter_Profile_idRenter_Profile");
+    results.close();
+    connection.close();
+    return id;
+  }
+
+  public static int getHostProfile(int sin) throws SQLException {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    ResultSet results = DatabaseSelector.getHostProfile(sin, connection);
+    int id = results.getInt("Host_Profile_idHost_Profile");
+    results.close();
+    connection.close();
+    return id;
+  }
+
+  public static int getSinFromHostId(int hostId) throws SQLException {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    ResultSet results = DatabaseSelector.getSinFromHostId(hostId, connection);
+    int id = -1;
+    while (results.next()) {
+      id = results.getInt("SIN");
+    }
+    results.close();
+    connection.close();
+    return id;
+  }
+
+  public static int getSinFromRentId(int rentId) throws SQLException {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    ResultSet results = DatabaseSelector.getSinFromRentId(rentId, connection);
+    int id = -1;
+    while (results.next()) {
+      id = results.getInt("SIN");
+    }
+    results.close();
+    connection.close();
+    return id;
+  }
+
 
   /**
    * Gets the details of the user based on their id.

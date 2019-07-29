@@ -146,4 +146,35 @@ public class DatabaseInsertHelper extends DatabaseInserter {
     return id;
   }
 
+  public static int insertHostComment(int hostId, int sin, String comment)
+      throws DatabaseInsertException, SQLException {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    int id = DatabaseInserter.insertHostComment(hostId, sin, comment, connection);
+    connection.close();
+    return id;
+  }
+
+  public static int insertRentComment(int rentId, int sin, String comment)
+      throws DatabaseInsertException, SQLException {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    int id = DatabaseInserter.insertRenterComment(rentId, sin, comment, connection);
+    connection.close();
+    return id;
+  }
+
+  public static int insertRenterRating(int rentId, int sin, int rating)
+      throws DatabaseInsertException, SQLException {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    int id = DatabaseInserter.insertRenterRating(rentId, sin, rating, connection);
+    connection.close();
+    return id;
+  }
+
+  public static int insertHostRating(int hostId, int sin, int rating)
+      throws DatabaseInsertException, SQLException {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    int id = DatabaseInserter.insertHostRating(hostId, sin, rating, connection);
+    connection.close();
+    return id;
+  }
 }

@@ -44,9 +44,9 @@ public class CancelListing extends UserOption {
       System.out.println("invalid date, try again (YYYY-MM-DD)");
       begin = sc.nextLine();
     }
-
-    DatabaseUpdateHelper.updateCancelRentalPrice(sin, Integer.parseInt(listingId), begin, end);
     DatabaseInsertHelper.insertCancelRent(sin, Integer.parseInt(listingId));
+    DatabaseUpdateHelper.updateCancelRentalPrice(sin, Integer.parseInt(listingId), begin, end);
+    System.out.println("operation finished");
 
   }
 

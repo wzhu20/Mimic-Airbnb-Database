@@ -60,7 +60,14 @@ public class SelectUserOption extends UserOption {
             case 8:
               option = new DeleteUser(sc, this.user.sin);
               break;
+            case 9:
+              option = new CommentRateHose(sc, this.user.sin);
+              break;
+            case 10:
+              option = new CommentRateRenter(sc, this.user.sin);
+              break;
             default:
+              option = new Blank(sc, "null option");
               break;
           }
           option.execute();
@@ -69,12 +76,12 @@ public class SelectUserOption extends UserOption {
         } catch (Exception e) {
           e.printStackTrace();
         }
-      } while (input.compareTo("0") != 0);
+      } while (input.compareTo("0") != 0 && input.compareTo("8") != 0);
     } else {
       System.out.println("");
       System.out.println("Error Happened!");
     }
-
+    System.out.println("Back to main menu");
   }
 
   private static void userMenu() {
@@ -88,6 +95,9 @@ public class SelectUserOption extends UserOption {
     System.out.println("6. update a Listing price");
     System.out.println("7. delete/cancel a Listing");
     System.out.println("8. delete this user");
+    System.out.println("9. comment/rate on host");
+    System.out.println("10. comment/rate on renter");
+
   }
 
 }

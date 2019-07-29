@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 public class DatabaseUpdater {
 
   protected static boolean deleteUser(int sin, Connection connection) {
-    String sql = "DELETE FROM USERS WHERE WHERE SIN = ?;";
+    String sql = "DELETE FROM USERS WHERE SIN = ?;";
     try {
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
       preparedStatement.setInt(1, sin);
@@ -20,7 +20,7 @@ public class DatabaseUpdater {
   }
 
   protected static boolean deleteListing(int listingId, Connection connection) {
-    String sql = "DELETE FROM listing WHERE WHERE ListingId = ?;";
+    String sql = "DELETE FROM listing WHERE ListingId = ?;";
     try {
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
       preparedStatement.setInt(1, listingId);
@@ -36,7 +36,7 @@ public class DatabaseUpdater {
   protected static boolean updateListingPrice(int listingId, String begin, String end,
       double rental, Connection connection) {
     String sql = "UPDATE Listing_has_Calendar SET RentalPrice = ?"
-        + " WHERE ListingId = ? AND Calendar_BeginDate = ? AND Calendar_EndDate = ?;";
+        + " WHERE Listing_ListingID = ? AND Calendar_BeginDate = ? AND Calendar_EndDate = ?;";
     try {
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
       preparedStatement.setDouble(1, rental);

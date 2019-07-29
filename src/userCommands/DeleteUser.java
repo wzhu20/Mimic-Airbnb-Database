@@ -16,6 +16,7 @@ public class DeleteUser extends UserOption {
   @Override
   void execute() throws NumberFormatException, SQLException, DatabaseInsertException {
     DatabaseUpdateHelper.deleteUser(this.sin);
+    System.out.println("deletion finished");
   }
 
 }

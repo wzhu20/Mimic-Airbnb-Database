@@ -95,7 +95,7 @@ public class DatabaseSelector {
       throws SQLException {
     String sql = "SELECT Users_Host_Listing.Listing_ListingID as Listing_ListingID "
         + "FROM Users_Host_Listing,Users_rent_Listing " + "WHERE Users_Host_Listing.Users_SIN = ? "
-        + "AND Users_Host_Listing.Listing_ListingID <> Users_Host_Listing.Listing_ListingID";
+        + "AND Users_Host_Listing.Listing_ListingID <> Users_Rent_Listing.Listing_ListingID";
     PreparedStatement preparedStatement = connection.prepareStatement(sql);
     preparedStatement.setInt(1, sin);
     ResultSet id = preparedStatement.executeQuery();
@@ -105,18 +105,70 @@ public class DatabaseSelector {
   public static ResultSet getAvaliableListing(Connection connection) throws SQLException {
     String sql = "SELECT Users_Host_Listing.Listing_ListingID "
         + "FROM Users_Host_Listing,Users_rent_Listing "
-        + "WHERE Users_Host_Listing.Listing_ListingID <> Users_Host_Listing.Listing_ListingID";
+        + "WHERE Users_Host_Listing.Listing_ListingID <> Users_Rent_Listing.Listing_ListingID";
     PreparedStatement preparedStatement = connection.prepareStatement(sql);
     ResultSet id = preparedStatement.executeQuery();
     return id;
   }
 
   public static ResultSet getListingDate(int listingId, Connection connection) throws SQLException {
-    String sql = "SELECT * " + "FROM Listing_has_Calendar" + "WHERE Listing_ListingID = ?";
+    String sql = "SELECT *  FROM Listing_has_Calendar WHERE Listing_ListingID = ?";
     PreparedStatement preparedStatement = connection.prepareStatement(sql);
     preparedStatement.setInt(1, listingId);
     ResultSet id = preparedStatement.executeQuery();
     return id;
   }
 
+  public static ResultSet getHostasRenter(int sin, Connection connection) throws SQLException {
+    String sql = "SELECT Users_Host_Listing.Users_SIN as Users_SIN "
+        + "FROM Users_Host_Listing,Users_rent_Listing "
+        + "WHERE Users_Host_Listing.Listing_ListingID = Users_rent_Listing.Listing_ListingID AND Users_rent_Listing.users_sin = ?";
+    PreparedStatement preparedStatement = connection.prepareStatement(sql);
+    preparedStatement.setInt(1, sin);
+    ResultSet id = preparedStatement.executeQuery();
+    return id;
+  }
+
+  public static ResultSet getRenterasHost(int sin, Connection connection) throws SQLException {
+    String sql = "SELECT Users_Host_Listing.Users_SIN as Users_SIN "
+        + "FROM Users_Host_Listing,Users_rent_Listing "
+        + "WHERE Users_Host_Listing.Listing_ListingID = Users_rent_Listing.Listing_ListingID AND Users_host_Listing.users_sin = ?";
+    PreparedStatement preparedStatement = connection.prepareStatement(sql);
+    preparedStatement.setInt(1, sin);
+    ResultSet id = preparedStatement.executeQuery();
+    return id;
+  }
+
+  public static ResultSet getRenterProfile(int sin, Connection connection) throws SQLException {
+    String sql = "SELECT Renter_Profile_idRenter_Profile " + "FROM Users" + "WHERE SIN = ?";
+    PreparedStatement preparedStatement = connection.prepareStatement(sql);
+    preparedStatement.setInt(1, sin);
+    ResultSet id = preparedStatement.executeQuery();
+    return id;
+  }
+
+
+  public static ResultSet getHostProfile(int sin, Connection connection) throws SQLException {
+    String sql = "SELECT Host_Profile_idHost_Profile " + "FROM Users" + "WHERE SIN = ?";
+    PreparedStatement preparedStatement = connection.prepareStatement(sql);
+    preparedStatement.setInt(1, sin);
+    ResultSet id = preparedStatement.executeQuery();
+    return id;
+  }
+
+  public static ResultSet getSinFromHostId(int hostId, Connection connection) throws SQLException {
+    String sql = "SELECT SIN FROM Users WHERE Host_Profile_idHost_Profile = ?";
+    PreparedStatement preparedStatement = connection.prepareStatement(sql);
+    preparedStatement.setInt(1, hostId);
+    ResultSet id = preparedStatement.executeQuery();
+    return id;
+  }
+
+  public static ResultSet getSinFromRentId(int rentId, Connection connection) throws SQLException {
+    String sql = "SELECT SIN FROM Users WHERE Renter_Profile_idRenter_Profile = ?";
+    PreparedStatement preparedStatement = connection.prepareStatement(sql);
+    preparedStatement.setInt(1, rentId);
+    ResultSet id = preparedStatement.executeQuery();
+    return id;
+  }
 }

@@ -322,4 +322,69 @@ public class DatabaseInserter {
     return -1;
   }
 
+  protected static int insertHostComment(int hostId, int sin, String comment,
+      Connection connection) {
+    String sql =
+        "INSERT INTO `Host Comments` (Host_Profile_idHost_Profile, Users_SIN, Comment) VALUES(?,?,?);";
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setInt(1, hostId);
+      preparedStatement.setInt(2, sin);
+      preparedStatement.setString(3, comment);
+      int id = preparedStatement.executeUpdate();
+      return id;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return -1;
+  }
+
+  protected static int insertRenterComment(int rentId, int sin, String comment,
+      Connection connection) {
+    String sql =
+        "INSERT INTO `Renter Comment` (Renter_Profile_idRenter_Profile, Users_SIN, Comment) VALUES(?,?,?);";
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setInt(1, rentId);
+      preparedStatement.setInt(2, sin);
+      preparedStatement.setString(3, comment);
+      int id = preparedStatement.executeUpdate();
+      return id;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return -1;
+  }
+
+  protected static int insertRenterRating(int rentId, int sin, int rating, Connection connection) {
+    String sql =
+        "INSERT INTO `Renter Rating` (Renter_Profile_idRenter_Profile, Users_SIN, rating) VALUES(?,?,?);";
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setInt(1, rentId);
+      preparedStatement.setInt(2, sin);
+      preparedStatement.setInt(3, rating);
+      int id = preparedStatement.executeUpdate();
+      return id;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return -1;
+  }
+
+  protected static int insertHostRating(int hostId, int sin, int rating, Connection connection) {
+    String sql =
+        "INSERT INTO `Host Rating` (Host_Profile_idHost_Profile, Users_SIN, rating) VALUES(?,?,?);";
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setInt(1, hostId);
+      preparedStatement.setInt(2, sin);
+      preparedStatement.setInt(3, rating);
+      int id = preparedStatement.executeUpdate();
+      return id;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return -1;
+  }
 }
