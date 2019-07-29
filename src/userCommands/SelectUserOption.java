@@ -39,13 +39,20 @@ public class SelectUserOption extends UserOption {
               option = new SelectUserOption(sc, user);
               break;
             case 3:
+              if (this.user.getUserType() == 2 || this.user.getUserType() == 3) {
+                option = new RentListing(sc, this.user.sin);
+              } else {
+                option = new Blank(sc, "This user is not a renter");
+              }
               break;
             case 4:
+              option = new CancelListing(sc, user.sin);
               break;
             case 5:
               option = new CreateListing(sc, user.sin);
               break;
             case 6:
+              option = new UpdateListing(sc, user.sin);
               break;
             case 7:
               option = new DeleteListing(sc, this.user.sin);
@@ -78,8 +85,8 @@ public class SelectUserOption extends UserOption {
     System.out.println("3. Rent a Listing");
     System.out.println("4. Cancel renting of a listing");
     System.out.println("5. Create a Listing");
-    System.out.println("6. update a Listing");
-    System.out.println("7. delete a Listing");
+    System.out.println("6. update a Listing price");
+    System.out.println("7. delete/cancel a Listing");
     System.out.println("8. delete this user");
   }
 

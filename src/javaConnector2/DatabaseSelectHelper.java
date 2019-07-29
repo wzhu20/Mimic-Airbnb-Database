@@ -23,6 +23,30 @@ public class DatabaseSelectHelper extends DatabaseSelector {
     return results;
   }
 
+  public static ResultSet getAllRentList(int sin) throws SQLException {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    ResultSet results = DatabaseSelector.getRentListing(sin, connection);
+    return results;
+  }
+
+  public static ResultSet getAllAvaliableHostList(int sin) throws SQLException {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    ResultSet results = DatabaseSelector.getAvaliableHostListing(sin, connection);
+    return results;
+  }
+
+  public static ResultSet getAllAvaliableListing() throws SQLException {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    ResultSet results = DatabaseSelector.getAvaliableListing(connection);
+    return results;
+  }
+
+  public static ResultSet getAllListingDate(int listingId) throws SQLException {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    ResultSet results = DatabaseSelector.getListingDate(listingId, connection);
+    return results;
+  }
+
 
   public static ResultSet getAllHometypes() throws SQLException {
     Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
@@ -68,5 +92,7 @@ public class DatabaseSelectHelper extends DatabaseSelector {
     }
     return null;
   }
+
+
 
 }

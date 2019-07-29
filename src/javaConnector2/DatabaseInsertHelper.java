@@ -114,10 +114,10 @@ public class DatabaseInsertHelper extends DatabaseInserter {
     return id;
   }
 
-  public static int insertRentListing(int sin, int listingId, int credit)
+  public static int insertRentListing(int sin, int listingId, String begin, String end, int credit)
       throws DatabaseInsertException, SQLException {
     Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
-    int id = DatabaseInserter.insertRentListing(sin, listingId, credit, connection);
+    int id = DatabaseInserter.insertRentListing(sin, listingId, begin, end, credit, connection);
     connection.close();
     return id;
   }
@@ -126,6 +126,22 @@ public class DatabaseInsertHelper extends DatabaseInserter {
       throws DatabaseInsertException, SQLException {
     Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
     int id = DatabaseInserter.insertListingAddress(postal, listingId, connection);
+    connection.close();
+    return id;
+  }
+
+  public static int insertCancelRent(int sin, int listingId)
+      throws DatabaseInsertException, SQLException {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    int id = DatabaseInserter.insertCancelRent(sin, listingId, connection);
+    connection.close();
+    return id;
+  }
+
+  public static int insertCancelHost(int sin, int listingId)
+      throws DatabaseInsertException, SQLException {
+    Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
+    int id = DatabaseInserter.insertCancelHost(sin, listingId, connection);
     connection.close();
     return id;
   }

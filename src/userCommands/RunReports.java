@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 import exceptions.DatabaseInsertException;
+import javaConnector2.Checker;
 import javaConnector2.ReportsHelper;
 
 public class RunReports extends UserOption {
@@ -67,6 +68,38 @@ public class RunReports extends UserOption {
               output = ReportsHelper.hostWithMoreThanTenPercentByCity();
               printOutput(output);
               break;
+            case 9:
+              String date1 = "";
+              String date2 = "";
+              do {
+                System.out.println("Date start(YYYY-MM-DD): ");
+                date1 = sc.nextLine();
+                System.out.println("Date end(YYYY-MM-DD): ");
+                date2 = sc.nextLine();
+              } while (!(Checker.checkValidDate(date1) && Checker.checkValidDate(date2)));
+              output = ReportsHelper.rankRentersByNumberOfRentsInDateRange(date1, date2);
+              printOutput(output);
+              break;
+            case 10:
+              output = ReportsHelper.rankRentersByNumberOfRentsInDateRangePerCity();
+              printOutput(output);
+              break;
+            case 11:
+              output = ReportsHelper.RentersWithMostCancellaionsInAYear();
+              printOutput(output);
+              break;
+            case 12:
+              output = ReportsHelper.HostersWithMostCancellaionsInAYear();
+              printOutput(output);
+              break;
+            case 13:
+              output = ReportsHelper.rankRentersDateRangePerYearWithMoreThanTwoBookings();
+              printOutput(output);
+              break;
+            case 14:
+              output = ReportsHelper.hostWithMoreThanTenPercentByCity();
+              printOutput(output);
+              break;
             default:
               option = new NullOption(sc);
               option.execute();
@@ -109,6 +142,11 @@ public class RunReports extends UserOption {
     System.out.println("6. rank Hosts By Number of Listings Per City");
     System.out.println("7. host With More Than Ten Percent By Country");
     System.out.println("8. host With More Than Ten Percent By City");
+    System.out.println("9. rank Renters By Number Of Rents In Date Range");
+    System.out.println("10. rank Renters By Number Of Rents In Date Range Per City");
+    System.out.println("11. Renters With Most Cancellaions In A Year");
+    System.out.println("12. Hosters With Most Cancellaions In A Year");
+    System.out.println("13. rank Renters Date Range Per Year With More Than Two Bookings");
   }
 
 }

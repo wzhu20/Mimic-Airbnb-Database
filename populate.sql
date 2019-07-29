@@ -139,11 +139,11 @@ INSERT INTO `Users_Host_Listing` (Users_SIN, Listing_ListingID) VALUES(300000, 3
 INSERT INTO `Users_Host_Listing` (Users_SIN, Listing_ListingID) VALUES(400000, 4);
 INSERT INTO `Users_Host_Listing` (Users_SIN, Listing_ListingID) VALUES(500000, 5);
 
-INSERT INTO `Users_rent_Listing` (Users_SIN, Listing_ListingID, Credit_Card) VALUES(120000, 1, 1234);
-INSERT INTO `Users_rent_Listing` (Users_SIN, Listing_ListingID, Credit_Card) VALUES(130000, 2, 12345);
-INSERT INTO `Users_rent_Listing` (Users_SIN, Listing_ListingID, Credit_Card) VALUES(140000, 3, 123456);
-INSERT INTO `Users_rent_Listing` (Users_SIN, Listing_ListingID, Credit_Card) VALUES(150000, 4, 1234567);
-INSERT INTO `Users_rent_Listing` (Users_SIN, Listing_ListingID, Credit_Card) VALUES(160000, 5, 12345678);
+INSERT INTO `Users_rent_Listing` (Users_SIN, Listing_ListingID, Credit_Card, Calendar_BeginDate, Calendar_EndDate) VALUES(120000, 1, 1234, '2000-01-01','2000-01-02');
+INSERT INTO `Users_rent_Listing` (Users_SIN, Listing_ListingID, Credit_Card, Calendar_BeginDate, Calendar_EndDate) VALUES(130000, 2, 12345,'2000-01-01','2000-01-02');
+INSERT INTO `Users_rent_Listing` (Users_SIN, Listing_ListingID, Credit_Card, Calendar_BeginDate, Calendar_EndDate) VALUES(140000, 3, 123456,'2000-01-05','2001-02-01');
+INSERT INTO `Users_rent_Listing` (Users_SIN, Listing_ListingID, Credit_Card, Calendar_BeginDate, Calendar_EndDate) VALUES(150000, 4, 1234567,'2000-01-07','2003-04-01');
+INSERT INTO `Users_rent_Listing` (Users_SIN, Listing_ListingID, Credit_Card, Calendar_BeginDate, Calendar_EndDate) VALUES(160000, 5, 12345678,'2000-01-10','2000-07-21');
 
 INSERT INTO `Renter Rating` (Users_SIN, Renter_Profile_idRenter_Profile, Rating) VALUES(120000,1, 1);
 INSERT INTO `Renter Rating` (Users_SIN, Renter_Profile_idRenter_Profile, Rating) VALUES(130000,2, 2);

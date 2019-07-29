@@ -273,15 +273,47 @@ public class DatabaseInserter {
     return -1;
   }
 
-  protected static int insertRentListing(int sin, int listingId, int credit,
-      Connection connection) {
+  protected static int insertRentListing(int sin, int listingId, String begin, String end,
+      int credit, Connection connection) {
     String sql =
-        "INSERT INTO Users_rent_Listing (Users_SIN, Listing_ListingID, Credit_Card) VALUES(?,?,?);";
+        "INSERT INTO Users_rent_Listing (Users_SIN, Listing_ListingID, Credit_Card, Calendar_BeginDate, Calendar_EndDate) VALUES(?,?,?,?,?);";
     try {
       PreparedStatement preparedStatement = connection.prepareStatement(sql);
       preparedStatement.setInt(1, sin);
       preparedStatement.setInt(2, listingId);
       preparedStatement.setInt(3, credit);
+      preparedStatement.setDate(4, java.sql.Date.valueOf(begin));
+      preparedStatement.setDate(5, java.sql.Date.valueOf(end));
+      int id = preparedStatement.executeUpdate();
+      return id;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return -1;
+  }
+
+  protected static int insertCancelRent(int sin, int listingId, Connection connection) {
+    String sql =
+        "INSERT INTO users_Cancel_Rent (users_rent_Listing_users_SIN, users_rent_Listing_Listing_ListingID) VALUES(?,?);";
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setInt(1, sin);
+      preparedStatement.setInt(2, listingId);
+      int id = preparedStatement.executeUpdate();
+      return id;
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return -1;
+  }
+
+  protected static int insertCancelHost(int sin, int listingId, Connection connection) {
+    String sql =
+        "INSERT INTO users_Cancel_Host (users_Host_Listing_users_SIN, users_Host_Listing_Listing_ListingID) VALUES(?,?);";
+    try {
+      PreparedStatement preparedStatement = connection.prepareStatement(sql);
+      preparedStatement.setInt(1, sin);
+      preparedStatement.setInt(2, listingId);
       int id = preparedStatement.executeUpdate();
       return id;
     } catch (Exception e) {

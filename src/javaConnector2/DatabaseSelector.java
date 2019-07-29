@@ -83,4 +83,40 @@ public class DatabaseSelector {
     return id;
   }
 
+  public static ResultSet getRentListing(int sin, Connection connection) throws SQLException {
+    String sql = "SELECT * FROM Users_rent_Listing WHERE Users_SIN = ?";
+    PreparedStatement preparedStatement = connection.prepareStatement(sql);
+    preparedStatement.setInt(1, sin);
+    ResultSet id = preparedStatement.executeQuery();
+    return id;
+  }
+
+  public static ResultSet getAvaliableHostListing(int sin, Connection connection)
+      throws SQLException {
+    String sql = "SELECT Users_Host_Listing.Listing_ListingID as Listing_ListingID "
+        + "FROM Users_Host_Listing,Users_rent_Listing " + "WHERE Users_Host_Listing.Users_SIN = ? "
+        + "AND Users_Host_Listing.Listing_ListingID <> Users_Host_Listing.Listing_ListingID";
+    PreparedStatement preparedStatement = connection.prepareStatement(sql);
+    preparedStatement.setInt(1, sin);
+    ResultSet id = preparedStatement.executeQuery();
+    return id;
+  }
+
+  public static ResultSet getAvaliableListing(Connection connection) throws SQLException {
+    String sql = "SELECT Users_Host_Listing.Listing_ListingID "
+        + "FROM Users_Host_Listing,Users_rent_Listing "
+        + "WHERE Users_Host_Listing.Listing_ListingID <> Users_Host_Listing.Listing_ListingID";
+    PreparedStatement preparedStatement = connection.prepareStatement(sql);
+    ResultSet id = preparedStatement.executeQuery();
+    return id;
+  }
+
+  public static ResultSet getListingDate(int listingId, Connection connection) throws SQLException {
+    String sql = "SELECT * " + "FROM Listing_has_Calendar" + "WHERE Listing_ListingID = ?";
+    PreparedStatement preparedStatement = connection.prepareStatement(sql);
+    preparedStatement.setInt(1, listingId);
+    ResultSet id = preparedStatement.executeQuery();
+    return id;
+  }
+
 }
