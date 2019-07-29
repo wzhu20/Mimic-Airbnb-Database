@@ -37,8 +37,8 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Listing_has_Calendar` (
   CONSTRAINT `fk_Listing_has_Calendar1_Listing1`
     FOREIGN KEY (`Listing_ListingID`)
     REFERENCES `airbnb`.`Listing` (`ListingID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Listing_has_Calendar1_Calendar1`
     FOREIGN KEY (`Calendar_BeginDate` , `Calendar_EndDate`)
     REFERENCES `airbnb`.`Calendar` (`BeginDate` , `EndDate`)
@@ -173,8 +173,8 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Address_has_Listing` (
   CONSTRAINT `fk_Address_has_Listing_Listing1`
     FOREIGN KEY (`Listing_ListingID`)
     REFERENCES `airbnb`.`Listing` (`ListingID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `airbnb`.`Experience` (
@@ -196,7 +196,7 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Users_has_Address` (
   CONSTRAINT `fk_Users_has_Address_Address1`
     FOREIGN KEY (`Address_Postal_Code`)
     REFERENCES `airbnb`.`Address` (`Postal_Code`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
@@ -245,13 +245,13 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Comment_On_Renter_Profile` (
   CONSTRAINT `fk_Comment_has_Renter_Profile_Comment1`
     FOREIGN KEY (`Comment_idComment`)
     REFERENCES `airbnb`.`Comment` (`idComment`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Comment_has_Renter_Profile_Renter_Profile1`
     FOREIGN KEY (`Renter_Profile_idRenter_Profile`)
     REFERENCES `airbnb`.`Renter_Profile` (`idRenter_Profile`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `airbnb`.`Comment_On_Host_Profile` (
@@ -262,13 +262,13 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Comment_On_Host_Profile` (
   CONSTRAINT `fk_Host_Profile_has_Comment_Host_Profile1`
     FOREIGN KEY (`Host_Profile_idHost_Profile`)
     REFERENCES `airbnb`.`Host_Profile` (`idHost_Profile`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Host_Profile_has_Comment_Comment1`
     FOREIGN KEY (`Comment_idComment`)
     REFERENCES `airbnb`.`Comment` (`idComment`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `airbnb`.`Profile Comments` (
@@ -280,18 +280,18 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Profile Comments` (
   CONSTRAINT `fk_Users_has_Renter_Profile_Users1`
     FOREIGN KEY (`Users_SIN`)
     REFERENCES `airbnb`.`Users` (`SIN`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Users_has_Renter_Profile_Renter_Profile1`
     FOREIGN KEY (`Renter_Profile_idRenter_Profile`)
     REFERENCES `airbnb`.`Renter_Profile` (`idRenter_Profile`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Comments On_Host_Profile1`
     FOREIGN KEY (`Host_Profile_idHost_Profile`)
     REFERENCES `airbnb`.`Host_Profile` (`idHost_Profile`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -303,13 +303,13 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Listing Comments` (
   CONSTRAINT `fk_Users_has_Listing_Users3`
     FOREIGN KEY (`Users_SIN`)
     REFERENCES `airbnb`.`Users` (`SIN`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Users_has_Listing_Listing3`
     FOREIGN KEY (`Listing_ListingID`)
     REFERENCES `airbnb`.`Listing` (`ListingID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `airbnb`.`Host Comments` (
@@ -320,13 +320,13 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Host Comments` (
   CONSTRAINT `fk_Host_Profile_has_Users_Host_Profile1`
     FOREIGN KEY (`Host_Profile_idHost_Profile`)
     REFERENCES `airbnb`.`Host_Profile` (`idHost_Profile`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Host_Profile_has_Users_Users1`
     FOREIGN KEY (`Users_SIN`)
     REFERENCES `airbnb`.`Users` (`SIN`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `airbnb`.`Renter Comment` (
@@ -337,13 +337,13 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Renter Comment` (
   CONSTRAINT `fk_Users_has_Renter_Profile_Users2`
     FOREIGN KEY (`Users_SIN`)
     REFERENCES `airbnb`.`Users` (`SIN`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Users_has_Renter_Profile_Renter_Profile2`
     FOREIGN KEY (`Renter_Profile_idRenter_Profile`)
     REFERENCES `airbnb`.`Renter_Profile` (`idRenter_Profile`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `airbnb`.`Listing Rating` (
@@ -354,13 +354,13 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Listing Rating` (
   CONSTRAINT `fk_Users_has_Listing_Users4`
     FOREIGN KEY (`Users_SIN`)
     REFERENCES `airbnb`.`Users` (`SIN`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Users_has_Listing_Listing4`
     FOREIGN KEY (`Listing_ListingID`)
     REFERENCES `airbnb`.`Listing` (`ListingID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `airbnb`.`Renter Rating` (
@@ -371,13 +371,13 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Renter Rating` (
   CONSTRAINT `fk_Users_has_Renter_Profile_Users3`
     FOREIGN KEY (`Users_SIN`)
     REFERENCES `airbnb`.`Users` (`SIN`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Users_has_Renter_Profile_Renter_Profile3`
     FOREIGN KEY (`Renter_Profile_idRenter_Profile`)
     REFERENCES `airbnb`.`Renter_Profile` (`idRenter_Profile`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -389,13 +389,13 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`Host Rating` (
   CONSTRAINT `fk_Host_Profile_has_Users_Host_Profile2`
     FOREIGN KEY (`Host_Profile_idHost_Profile`)
     REFERENCES `airbnb`.`Host_Profile` (`idHost_Profile`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Host_Profile_has_Users_Users2`
     FOREIGN KEY (`Users_SIN`)
     REFERENCES `airbnb`.`Users` (`SIN`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `airbnb`.`users_Cancel_Rent` (
@@ -405,8 +405,8 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`users_Cancel_Rent` (
   CONSTRAINT `fk_users_Cancel_Rent_users_rent_Listing1`
     FOREIGN KEY (`users_rent_Listing_users_SIN` , `users_rent_Listing_Listing_ListingID`)
     REFERENCES `airbnb`.`Users_Host_Listing` (`users_SIN` , `Listing_ListingID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
 CREATE TABLE IF NOT EXISTS `airbnb`.`users_Cancel_Host` (
@@ -416,6 +416,6 @@ CREATE TABLE IF NOT EXISTS `airbnb`.`users_Cancel_Host` (
   CONSTRAINT `fk_users_Cancel_Host_users_Host_Listing1`
     FOREIGN KEY (`users_Host_Listing_users_SIN` , `users_Host_Listing_Listing_ListingID`)
     REFERENCES `airbnb`.`users_Host_Listing` (`users_SIN` , `Listing_ListingID`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE)
 ENGINE = InnoDB;

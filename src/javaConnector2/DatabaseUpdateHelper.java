@@ -17,7 +17,7 @@ public class DatabaseUpdateHelper extends DatabaseUpdater {
     // boolean cdt2 = Checker.checkValidUsersId(id);
     // if (cdt1 && cdt2) {
     Connection connection = DatabaseDriverHelper.connectOrCreateDataBase();
-    boolean complete = DatabaseUpdater.deleteUser(listingId, connection);
+    boolean complete = DatabaseUpdater.deleteListing(listingId, connection);
     connection.close();
     return complete;
     // }
